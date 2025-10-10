@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Prodex — Smart OEE & Productivity Dashboard</title>
+    <meta name="application-name" content="Prodex" />
+    <meta name="apple-mobile-web-app-title" content="Prodex" />
+    <meta property="og:title" content="Prodex — Smart OEE & Productivity Dashboard" />
+    <meta name="twitter:title" content="Prodex — Smart OEE & Productivity Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* Inter for display titles; other legacy imports retained if required */
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
+    <link href="tailwind.css" rel="stylesheet" />
+  </head>
+  <body class="font-sans bg-[#020202] text-white text-[14px] leading-[20px]">
+    <div id="app"></div>
+    <script type="module" src="./src/index.tsx"></script>
+    <style>
+      /* Global scrollbar hiding */
+      html, body {
+        overflow-x: hidden;
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+      }
+      html::-webkit-scrollbar, body::-webkit-scrollbar {
+        display: none; /* Safari and Chrome */
+      }
+    </style>
+  </body>
+</html>
