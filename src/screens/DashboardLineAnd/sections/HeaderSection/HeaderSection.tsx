@@ -1,7 +1,10 @@
 import { SearchIcon } from "lucide-react";
 import { Input } from "../../../../components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../components/ui/select";
+import { useAuth } from "../../../../lib/auth";
 
 export const HeaderSection = (): JSX.Element => {
+  const { role, setRole } = useAuth();
   const currentDateTime = new Date().toLocaleString('en-US', {
     year: 'numeric',
     month: '2-digit',
@@ -32,7 +35,7 @@ export const HeaderSection = (): JSX.Element => {
           </div>
         </div>
 
-        {/* Search and DateTime */}
+    {/* Search, Role Switcher and DateTime */}
   <div className="flex items-center gap-6 relative z-10 mr-12">
           {/* Status Indicator */}
           <div className="flex items-center gap-3 px-4 py-2 rounded-[6px] border border-[#4F4F59] bg-[#191921]">
@@ -48,6 +51,20 @@ export const HeaderSection = (): JSX.Element => {
             />
           </div>
           
+          {/* Role switcher: Manager vs Worker */}
+          <div className="min-w-[200px]">
+            <Select value={role} onValueChange={v => setRole(v as any)}>
+              <SelectTrigger className="h-10 bg-[#151518] text-white border border-[#4F4F59] rounded-[6px]">
+                <SelectValue placeholder="Select mode" />
+              </SelectTrigger>
+              <SelectContent className="bg-white text-black border border-gray-200">
+                <SelectItem value="manager" className="data-[highlighted]:bg-gray-100">Manager view</SelectItem>
+                <SelectItem value="supervisor" className="data-[highlighted]:bg-gray-100">Supervisor</SelectItem>
+                <SelectItem value="operator" className="data-[highlighted]:bg-gray-100">Worker view</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="px-6 py-3 rounded-[6px] border border-[#4F4F59] bg-[#191921]">
             <div className="text-white text-sm font-sans font-medium tracking-normal">
               {currentDateTime}

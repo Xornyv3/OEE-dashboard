@@ -20,6 +20,7 @@ import { SettingsSection } from "./sections/SettingsSection";
 import { DashboardOverviewSection } from "./sections/DashboardOverviewSection";
 import { MachineLinePerformanceSection } from "./sections/MachineLinePerformanceSection";
 import { KPIDashboardSection } from "./sections/KPIDashboardSection";
+import { PlanningSection } from "./sections/PlanningSection";
 
 export type ActiveTab =
   | "general-info"
@@ -34,6 +35,7 @@ export type ActiveTab =
   | "energy-monitoring"
   | "cost-profit"
   | "oee-data-input"
+  | "planning"
   | "settings";
 
 export const DashboardLineAnd = (): JSX.Element => {
@@ -94,6 +96,12 @@ export const DashboardLineAnd = (): JSX.Element => {
         return <CostProfitSection />;
       case "oee-data-input":
         return <OEEDataInputSection />;
+      case "planning":
+        return (
+          <div className="space-y-6">
+            <PlanningSection />
+          </div>
+        );
       case "settings":
         return <SettingsSection />;
       default:

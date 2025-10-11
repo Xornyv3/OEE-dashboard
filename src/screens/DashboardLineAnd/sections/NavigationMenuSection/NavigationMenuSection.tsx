@@ -28,6 +28,11 @@ export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenu
       tabKey: "dashboard-line-machine" as ActiveTab,
     },
     {
+      title: "Planning & Scheduling",
+      icon: <TrendingUpIcon className="h-7 w-7" />,
+      tabKey: "planning" as ActiveTab,
+    },
+    {
       title: "KPI Dashboard",
       icon: <TrendingUpIcon className="h-7 w-7" />,
       tabKey: "kpi-dashboard" as ActiveTab,

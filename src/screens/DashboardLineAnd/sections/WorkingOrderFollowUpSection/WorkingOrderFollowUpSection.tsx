@@ -8,8 +8,11 @@ import { Input } from "../../../../components/ui/input";
 import { cancelWorkOrder, fetchItemDetails, fetchShiftTypes, type ItemDetails, type ShiftInfo } from "../../../../lib/erpnext";
 import { Separator } from "../../../../components/ui/separator";
 import { ClipboardList, Download, Users as UsersIcon, Timer, OctagonX } from "lucide-react";
+import { useAuth } from "../../../../lib/auth";
 
 export const WorkingOrderFollowUpSection = (): JSX.Element => {
+  const { role } = useAuth();
+  const viewOnly = role === 'operator';
   // Local state for orders (could be fetched later)
   const [orders, setOrders] = useState<Array<{
     id: string; product: string; priority: string; status: string; progress: number; startDate: string; dueDate: string; assignedLine: string; plannedQty: number; completedQty: number;
@@ -176,7 +179,9 @@ export const WorkingOrderFollowUpSection = (): JSX.Element => {
             </div>
           </div>
           <div className="flex gap-3">
-            <Button className="bg-white text-black hover:bg-white/90">Create (UI)</Button>
+            {!viewOnly && (
+              <Button className="bg-white text-black hover:bg-white/90">Create (UI)</Button>
+            )}
             <Button variant="outline" className="flex items-center gap-2">
               <Download className="w-4 h-4" /> Import from ERP/CRM (UI)
             </Button>
@@ -215,7 +220,7 @@ export const WorkingOrderFollowUpSection = (): JSX.Element => {
               <Input className="bg-[#191921] border-[#4F4F59] text-white" placeholder="Full name" />
             </div>
             <div className="flex items-end">
-              <Button className="w-full bg-white text-black hover:bg-white/90">Assign (UI)</Button>
+              {!viewOnly && <Button className="w-full bg-white text-black hover:bg-white/90">Assign (UI)</Button>}
             </div>
           </div>
           <div className="overflow-x-auto">
@@ -277,9 +282,13 @@ export const WorkingOrderFollowUpSection = (): JSX.Element => {
                   <TableCell className="text-white/80">Emergency stop pressed</TableCell>
                   <TableCell className="text-white/80">10</TableCell>
                   <TableCell>
-                    <Button variant="ghost" size="sm" className="text-white/80 hover:text-white flex items-center gap-2">
-                      <OctagonX className="w-4 h-4" /> Remove
-                    </Button>
+                    {!viewOnly ? (
+                      <Button variant="ghost" size="sm" className="text-white/80 hover:text-white flex items-center gap-2">
+                        <OctagonX className="w-4 h-4" /> Remove
+                      </Button>
+                    ) : (
+                      <span className="text-white/50 text-xs">View only</span>
+                    )}
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -390,11 +399,11 @@ export const WorkingOrderFollowUpSection = (): JSX.Element => {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
       <Card className="xl:col-span-2">
         <CardHeader>
-          <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center">
             <CardTitle className="text-white text-xl">Work Order Follow-up</CardTitle>
             <div className="flex gap-2">
               <Button variant="outline">Export</Button>
-              <Button>New Order</Button>
+                {!viewOnly && <Button>New Order</Button>}
             </div>
           </div>
         </CardHeader>

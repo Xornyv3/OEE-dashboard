@@ -348,7 +348,7 @@ export const SettingsSection = (): JSX.Element => {
           </div>
         </CardContent>
       </Card>
-      {/* General Settings */}
+  {/* General Settings */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
         <CardHeader>
           <CardTitle className="text-white text-xl">General Settings</CardTitle>
