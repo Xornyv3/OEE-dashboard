@@ -13,6 +13,8 @@ import { DowntimeStopSection } from "./sections/DowntimeStopSection";
 import { HistoricalDataSection } from "./sections/HistoricalDataSection";
 import { MachineMaintenanceSection } from "./sections/MachineMaintenanceSection";
 import { EnergySustainabilitySection } from "./sections/EnergySustainabilitySection";
+import { DashboardCountSection } from "./sections/DashboardCountSection";
+import { EnergyMonitoringSection } from "./sections/EnergyMonitoringSection";
 import { CostProfitSection } from "./sections/CostProfitSection";
 import { OEEDataInputSection } from "./sections/OEEDataInputSection";
 import { SettingsSection } from "./sections/SettingsSection";
@@ -94,9 +96,8 @@ export const DashboardLineAnd = (): JSX.Element => {
         return <WorkingOrderFollowUpSection />;
       case "downtime-stop":
         return <DowntimeStopSection />;
-      // Deprecated: consolidated into Overview/Realtime
-      // case "dashboard-count":
-      //   return <DashboardCountSection />;
+      case "dashboard-count":
+        return <DashboardCountSection />;
       case "historical-data":
         return <HistoricalDataSection />;
       case "machine-maintenance":
@@ -107,9 +108,12 @@ export const DashboardLineAnd = (): JSX.Element => {
             <MaintenancePdMSection />
           </div>
         );
-      // Deprecated: replaced by Energy & Sustainability
-      // case "energy-monitoring":
-      //   return <EnergyMonitoringSection />;
+      case "energy-monitoring":
+        return (
+          <div className="space-y-6">
+            <EnergyMonitoringSection />
+          </div>
+        );
       case "energy-sustainability":
         return (
           <div className="space-y-6">

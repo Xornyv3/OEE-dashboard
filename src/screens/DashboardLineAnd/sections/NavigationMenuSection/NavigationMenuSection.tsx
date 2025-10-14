@@ -16,7 +16,6 @@ import {
   BrainIcon,
   LeafIcon,
 } from "lucide-react";
-import { Button } from "../../../../components/ui/button";
 import { ScrollArea } from "../../../../components/ui/scroll-area";
 import { ActiveTab } from "../../DashboardLineAnd";
 
@@ -112,11 +111,6 @@ export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenu
       icon: <SettingsIcon className="h-7 w-7" />,
       tabKey: "settings" as ActiveTab,
     },
-    {
-      title: "Energy & Sustainability",
-      icon: <LeafIcon className="h-7 w-7" />,
-      tabKey: "energy-sustainability" as ActiveTab,
-    },
   ];
 
   return (
@@ -140,34 +134,25 @@ export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenu
             {menuItems.map((item, index) => {
               const isActive = activeTab === item.tabKey;
               return (
-                <div key={index} className="relative w-full h-12">
-                  {/* Fixed icon column (5rem) */}
-                  <div className="absolute left-0 top-0 h-12 w-20 flex items-center justify-center">
-                    <Button
-                      variant="ghost"
-                      onClick={() => onTabChange(item.tabKey)}
-                      className={
-                        `h-12 w-14 p-0 rounded-[6px] transition-colors duration-200 flex items-center justify-center ${
-                          isActive
-                            ? "bg-[#191921] border border-brand-primary"
-                            : "text-[#9B9BA6] hover:bg-[#191921] hover:text-white"
-                        }`
-                      }
-                      title={item.title}
-                    >
-                      <span className={isActive ? "text-brand-primary" : "text-[#9B9BA6]"}>{item.icon}</span>
-                    </Button>
+                <button
+                  key={index}
+                  onClick={() => onTabChange(item.tabKey)}
+                  className={`group relative w-full h-12 text-left flex items-center pl-0 pr-4 rounded-[6px] transition-colors duration-150 ${
+                    isActive ? 'bg-[#191921] border border-brand-primary' : 'hover:bg-[#191921]'
+                  }`}
+                  title={item.title}
+                >
+                  <div className="h-12 w-20 flex items-center justify-center">
+                    <span className={isActive ? 'text-brand-primary' : 'text-[#9B9BA6] group-hover:text-white'}>
+                      {item.icon}
+                    </span>
                   </div>
-
-                  {/* Label (slides in without moving icon) */}
                   <span
-                    className={`${
-                      isActive ? "text-brand-primary" : "text-[#EAEAEA]"
-                    } absolute left-20 top-1/2 -translate-y-1/2 text-sm font-medium whitespace-nowrap pointer-events-none opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100`}
+                    className={`${isActive ? 'text-brand-primary' : 'text-[#EAEAEA] group-hover:text-white'} text-sm font-medium whitespace-nowrap`}
                   >
                     {item.title}
                   </span>
-                </div>
+                </button>
               );
             })}
           </div>

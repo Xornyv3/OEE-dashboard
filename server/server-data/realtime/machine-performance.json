@@ -1,0 +1,39 @@
+{
+  "generatedAt": "2025-10-14T00:00:00.000Z",
+  "lines": [
+    {
+      "lineId": "Line 1",
+      "targetPerHour": 700,
+      "machines": [
+        {"id": "M-01", "name": "Forming Press A", "good": 11890, "scrap": 560, "rework": 230, "energyKWh": 2450, "efficiency": 92, "availability": 89, "performance": 93, "quality": 96},
+        {"id": "M-02", "name": "Lathe B", "good": 10230, "scrap": 430, "rework": 210, "energyKWh": 1980, "efficiency": 88, "availability": 90, "performance": 87, "quality": 95},
+        {"id": "M-03", "name": "Robot Arm C", "good": 15670, "scrap": 640, "rework": 150, "energyKWh": 1680, "efficiency": 85, "availability": 88, "performance": 86, "quality": 94},
+        {"id": "M-04", "name": "Assembly Station D", "good": 13540, "scrap": 390, "rework": 180, "energyKWh": 1420, "efficiency": 90, "availability": 91, "performance": 89, "quality": 96}
+      ]
+    },
+    {
+      "lineId": "Line 2",
+      "targetPerHour": 680,
+      "machines": [
+        {"id": "M-05", "name": "CNC Mill E", "good": 12780, "scrap": 520, "rework": 200, "energyKWh": 2100, "efficiency": 90, "availability": 90, "performance": 92, "quality": 97},
+        {"id": "M-06", "name": "Polish Station F", "good": 11020, "scrap": 470, "rework": 260, "energyKWh": 1760, "efficiency": 87, "availability": 88, "performance": 85, "quality": 95},
+        {"id": "M-07", "name": "Laser Cutter G", "good": 14950, "scrap": 600, "rework": 220, "energyKWh": 2380, "efficiency": 82, "availability": 86, "performance": 84, "quality": 93},
+        {"id": "M-08", "name": "Inspection Station H", "good": 14060, "scrap": 410, "rework": 170, "energyKWh": 1540, "efficiency": 89, "availability": 90, "performance": 88, "quality": 97}
+      ]
+    }
+  ],
+  "hourly": [
+    {"hour": "06:00", "count": 520, "energy": 210},
+    {"hour": "07:00", "count": 580, "energy": 225},
+    {"hour": "08:00", "count": 620, "energy": 235},
+    {"hour": "09:00", "count": 590, "energy": 230},
+    {"hour": "10:00", "count": 650, "energy": 245},
+    {"hour": "11:00", "count": 680, "energy": 255},
+    {"hour": "12:00", "count": 420, "energy": 180},
+    {"hour": "13:00", "count": 610, "energy": 240},
+    {"hour": "14:00", "count": 640, "energy": 248},
+    {"hour": "15:00", "count": 670, "energy": 252},
+    {"hour": "16:00", "count": 580, "energy": 220},
+    {"hour": "17:00", "count": 520, "energy": 210}
+  ]
+}

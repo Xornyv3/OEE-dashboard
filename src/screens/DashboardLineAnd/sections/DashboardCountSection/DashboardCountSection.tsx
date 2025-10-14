@@ -1,53 +1,30 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../../../../components/ui/card";
+import { useEffect, useState } from 'react';
+import { getMachinePerformance, MachinePerformanceDataset } from '../../../../lib/realtime';
 
 export const DashboardCountSection = (): JSX.Element => {
+  const [data, setData] = useState<MachinePerformanceDataset | null>(null);
+  useEffect(() => { getMachinePerformance().then(setData); }, []);
+
+  const allMachines = data?.lines.flatMap(l => l.machines) || [];
+  const totals = allMachines.reduce((acc, m) => {
+    acc.good += m.good;
+    acc.scrap += m.scrap;
+    acc.rework += m.rework;
+    return acc;
+  }, { good: 0, scrap: 0, rework: 0 });
+  const totalProduction = totals.good + totals.scrap;
+
   const productionCounts = [
-    {
-      title: "Total Production",
-      count: "12,450",
-      change: "+5.2%",
-      changeType: "increase",
-      period: "vs yesterday",
-    },
-    {
-      title: "Good Parts",
-      count: "11,890",
-      change: "+3.8%", 
-      changeType: "increase",
-      period: "vs yesterday",
-    },
-    {
-      title: "Defective Parts",
-      count: "560",
-      change: "-12.5%",
-      changeType: "decrease",
-      period: "vs yesterday",
-    },
-    {
-      title: "Scrap Count",
-      count: "125",
-      change: "+8.3%",
-      changeType: "increase",
-      period: "vs yesterday",
-    },
+    { title: 'Total Production', count: totalProduction.toLocaleString(), change: '+5.2%', changeType: 'increase', period: 'vs yesterday' },
+    { title: 'Good Parts', count: totals.good.toLocaleString(), change: '+3.8%', changeType: 'increase', period: 'vs yesterday' },
+    { title: 'Defective Parts', count: totals.scrap.toLocaleString(), change: '-1.2%', changeType: 'decrease', period: 'vs yesterday' },
+    { title: 'Rework', count: totals.rework.toLocaleString(), change: '+0.5%', changeType: 'increase', period: 'vs yesterday' },
   ];
 
-  const hourlyProduction = [
-    { hour: "06:00", count: 520 },
-    { hour: "07:00", count: 580 },
-    { hour: "08:00", count: 620 },
-    { hour: "09:00", count: 590 },
-    { hour: "10:00", count: 650 },
-    { hour: "11:00", count: 680 },
-    { hour: "12:00", count: 420 },
-    { hour: "13:00", count: 610 },
-    { hour: "14:00", count: 640 },
-    { hour: "15:00", count: 670 },
-    { hour: "16:00", count: 580 },
-    { hour: "17:00", count: 520 },
-  ];
+  const hourlyProduction = data?.hourly.map(h => ({ hour: h.hour, count: h.count })) || [];
 
-  const maxCount = Math.max(...hourlyProduction.map(h => h.count));
+  const maxCount = hourlyProduction.length ? Math.max(...hourlyProduction.map(h => h.count)) : 0;
 
   const barHeightFor = (value: number) => {
     const pct = Math.round((value / maxCount) * 100);
@@ -83,8 +60,16 @@ export const DashboardCountSection = (): JSX.Element => {
     <div className="space-y-6">
       {/* Production Count Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {productionCounts.map((item, index) => (
-          <Card key={index} className="bg-white/10 backdrop-blur-sm border border-white/20">
+        {productionCounts.map((item, index) => {
+          const accentClass = index === 0
+            ? "accent-card accent-indigo"
+            : index === 1
+              ? "accent-card accent-green"
+              : index === 2
+                ? "accent-card accent-red"
+                : "accent-card accent-orange";
+          return (
+          <Card key={index} className={accentClass + " backdrop-blur-sm"}>
             <CardContent className="p-6">
               <div className="space-y-2">
                 <h3 className="text-white/70 text-sm font-medium">{item.title}</h3>
@@ -100,7 +85,7 @@ export const DashboardCountSection = (): JSX.Element => {
               </div>
             </CardContent>
           </Card>
-        ))}
+        );})}
       </div>
 
       {/* Hourly Production Chart */}
@@ -135,28 +120,29 @@ export const DashboardCountSection = (): JSX.Element => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {[
-                { line: "Line 1", count: 3250, target: 3500, efficiency: 93 },
-                { line: "Line 2", count: 2890, target: 3000, efficiency: 96 },
-                { line: "Line 3", count: 3150, target: 3200, efficiency: 98 },
-                { line: "Line 4", count: 2760, target: 3100, efficiency: 89 },
-                { line: "Line 5", count: 3400, target: 3400, efficiency: 100 },
-              ].map((item, index) => (
+              {data?.lines.map((ln, index) => {
+                const lineGood = ln.machines.reduce((s,m) => s + m.good, 0);
+                const lineScrap = ln.machines.reduce((s,m) => s + m.scrap, 0);
+                const lineTotal = lineGood + lineScrap;
+                const efficiency = Math.round(
+                  ln.machines.reduce((s,m)=> s + m.efficiency,0) / (ln.machines.length || 1)
+                );
+                return (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-white font-medium">{item.line}</span>
+                    <span className="text-white font-medium">{ln.lineId}</span>
                     <div className="text-right">
-                      <div className="text-white">{item.count} / {item.target}</div>
+                      <div className="text-white">{lineTotal.toLocaleString()} / {ln.targetPerHour * 8}</div>
                       <div className={"text-sm text-white/80"}>
-                        {item.efficiency}% efficiency
+                        {efficiency}% efficiency
                       </div>
                     </div>
                   </div>
                   <div className="w-full bg-white/10 rounded-full h-2">
-                    <div className={`h-2 rounded-full bg-white ${widthClassFor(item.count, item.target)}`}></div>
+                    <div className={`h-2 rounded-full bg-white ${widthClassFor(lineTotal, ln.targetPerHour * 8)}`}></div>
                   </div>
                 </div>
-              ))}
+              );})}
             </div>
           </CardContent>
         </Card>
@@ -168,15 +154,26 @@ export const DashboardCountSection = (): JSX.Element => {
           <CardContent>
             <div className="space-y-6">
               <div className="text-center">
-                <div className="text-4xl font-bold text-white">95.5%</div>
+                <div className="text-4xl font-bold text-white">{
+                  allMachines.length ? (
+                    (allMachines.reduce((s,m)=> s + m.quality,0) / allMachines.length).toFixed(1) + '%'
+                  ) : '—'
+                }</div>
                 <div className="text-white/70">Overall Quality Rate</div>
               </div>
               <div className="space-y-4">
-                {[
-                  { metric: "First Pass Yield", value: "94.2%", color: "bg-white" },
-                  { metric: "Rework Rate", value: "3.8%", color: "bg-white/70" },
-                  { metric: "Scrap Rate", value: "2.0%", color: "bg-white/40" },
-                ].map((item, index) => (
+                {(() => {
+                  const avgQuality = allMachines.length ? allMachines.reduce((s,m)=> s + m.quality,0)/allMachines.length : 0;
+                  const total = totalProduction || 1;
+                  const scrapRate = total ? (totals.scrap/total)*100 : 0;
+                  const reworkRate = total ? (totals.rework/total)*100 : 0;
+                  const fpYield = avgQuality; // placeholder mapping
+                  return [
+                    { metric: 'First Pass Yield', value: fpYield.toFixed(1)+'%', color: 'bg-white' },
+                    { metric: 'Rework Rate', value: reworkRate.toFixed(1)+'%', color: 'bg-white/70' },
+                    { metric: 'Scrap Rate', value: scrapRate.toFixed(1)+'%', color: 'bg-white/40' },
+                  ];
+                })().map((item, index) => (
                   <div key={index} className="flex justify-between items-center">
                     <span className="text-white/70">{item.metric}</span>
                     <div className="flex items-center gap-2">

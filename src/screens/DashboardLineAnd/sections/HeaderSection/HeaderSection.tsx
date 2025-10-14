@@ -25,13 +25,6 @@ export const HeaderSection = (): JSX.Element => {
           </h1>
           <div className="flex items-center flex-wrap gap-2 sm:gap-3 mt-2">
             <p className="text-[#9B9BA6] text-[14px] leading-[20px] font-medium tracking-normal">Smart OEE & Productivity Dashboard</p>
-            {/* Build tag to verify production updates */}
-            <span
-              title="Build identifier"
-              className="px-2 py-0.5 rounded-[6px] border border-[#4F4F59] bg-[#191921] text-white/80 text-[12px] leading-[16px]"
-            >
-              Build v3
-            </span>
           </div>
         </div>
 

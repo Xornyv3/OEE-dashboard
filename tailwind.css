@@ -251,6 +251,56 @@
   }
 }
 
+/* === Global scrollbar styling (dark, low-contrast track, subtle thumb) === */
+/* WebKit */
+*::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+  background: transparent;
+}
+*::-webkit-scrollbar-track {
+  background: #151518;
+  border-radius: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3a3a40, #2a2a2f);
+  border-radius: 6px;
+  border: 2px solid #151518; /* creates inset look */
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #4f4f59, #3a3a40);
+}
+*::-webkit-scrollbar-corner { background: #151518; }
+
+/* Firefox */
+* { scrollbar-color: #3a3a40 #151518; scrollbar-width: thin; }
+
+/* Horizontal specific tweak: slightly shorter height inside dark containers */
+.horizontal-scrollbar::-webkit-scrollbar { height: 8px; }
+
+/* === Calendar (date/time) picker icon override to white === */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.6) contrast(1.1);
+  opacity: 0.9;
+  cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* For Chromium-based forced color schemes fallback */
+@media (forced-colors: active) {
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: none;
+  }
+}
+
 :root {
   --base-regular-font-family: Arial, sans-serif;
   --base-regular-font-size: 14px;
@@ -316,3 +366,32 @@ h1, h2, h3, h4, h5, h6 {
   .clip-quarter-right { clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%); }
   .clip-quarter-bottom { clip-path: polygon(50% 50%, 50% 100%, 0% 100%, 0% 50%); }
 }
+
+/* === Accent card utilities (subtle color without breaking dark theme) === */
+.accent-card {
+  position: relative;
+  overflow: hidden; /* ensure top bar rounded corners */
+  --accent-color: #553FFE;
+  --accent-tint-start: rgba(85, 63, 254, 0.15);
+  --accent-tint-end: rgba(85, 63, 254, 0.04);
+  background: linear-gradient(180deg, var(--accent-tint-start), var(--accent-tint-end));
+  border-color: rgba(255,255,255,0.15) !important;
+}
+.accent-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0; /* top strip */
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-color));
+}
+
+/* Accent palettes mapped to existing token colors */
+.accent-blue { --accent-color: #146EF5; --accent-tint-start: rgba(20,110,245,0.18); --accent-tint-end: rgba(20,110,245,0.05); }
+.accent-indigo { --accent-color: #553FFE; --accent-tint-start: rgba(85,63,254,0.18); --accent-tint-end: rgba(85,63,254,0.05); }
+.accent-green { --accent-color: #05C168; --accent-tint-start: rgba(5,193,104,0.22); --accent-tint-end: rgba(5,193,104,0.06); }
+.accent-red { --accent-color: #FF5A65; --accent-tint-start: rgba(255,90,101,0.22); --accent-tint-end: rgba(255,90,101,0.06); }
+.accent-orange { --accent-color: #FF9E2C; --accent-tint-start: rgba(255,158,44,0.22); --accent-tint-end: rgba(255,158,44,0.06); }
+.accent-teal { --accent-color: #1D88FE; --accent-tint-start: rgba(29,136,254,0.18); --accent-tint-end: rgba(29,136,254,0.05); }
+
+/* Optional subtle hover elevate */
+.accent-card:hover { box-shadow: 0 4px 24px -6px rgba(0,0,0,0.4), 0 0 0 1px var(--accent-color)/20; }

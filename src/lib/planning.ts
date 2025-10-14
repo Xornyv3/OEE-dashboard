@@ -24,6 +24,7 @@ export type Assignment = {
 };
 
 const API_BASE = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
+import { fetchDemoDataset } from './demo';
 
 async function safeGet<T>(path: string, fallback: T): Promise<T> {
   if (!API_BASE) return fallback;
@@ -52,6 +53,8 @@ async function safePost<T>(path: string, body: unknown, fallback: T): Promise<T>
 }
 
 export async function fetchArticles(): Promise<Article[]> {
+  const demo = await fetchDemoDataset();
+  if (demo.planning?.articles?.length) return demo.planning.articles as unknown as Article[];
   const fallback: Article[] = [
     {
       id: "PEN-A",
@@ -76,6 +79,10 @@ export async function fetchArticles(): Promise<Article[]> {
 }
 
 export async function fetchMachines(): Promise<Machine[]> {
+  const demo = await fetchDemoDataset();
+  if (demo.production?.lines?.length) {
+    return demo.production.lines.flatMap(line => line.machines.map(m => ({ id: m.id, name: m.name, type: m.type, line: line.lineId })));
+  }
   const fallback: Machine[] = [
     { id: "M-01", name: "Molder A", type: "molder", line: "Line 1" },
     { id: "M-02", name: "Press B", type: "press", line: "Line 1" },
@@ -86,6 +93,8 @@ export async function fetchMachines(): Promise<Machine[]> {
 }
 
 export async function fetchShiftSlots(): Promise<ShiftSlot[]> {
+  const demo = await fetchDemoDataset();
+  if (demo.planning?.shifts?.length) return demo.planning.shifts as unknown as ShiftSlot[];
   const fallback: ShiftSlot[] = [
     { name: "Morning", start: "06:00", end: "14:00" },
     { name: "Afternoon", start: "14:00", end: "22:00" },
@@ -95,6 +104,8 @@ export async function fetchShiftSlots(): Promise<ShiftSlot[]> {
 }
 
 export async function fetchAssignments(date: string): Promise<Assignment[]> {
+  const demo = await fetchDemoDataset();
+  if (demo.planning?.assignments?.length) return demo.planning.assignments.filter(a => a.date === date) as unknown as Assignment[];
   const fallback: Assignment[] = [
     { id: "A-1", date, shift: "Morning", machineId: "M-01", articleId: "PEN-A", componentId: "crystal", quantity: 500, operatorId: "op1" },
     { id: "A-2", date, shift: "Morning", machineId: "M-02", articleId: "PEN-A", componentId: "buchon", quantity: 500, operatorId: "op2" },

@@ -34,8 +34,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Arial", "sans-serif"],
-        display: ["Inter", "system-ui", "Segoe UI", "Arial", "sans-serif"],
+        sans: ["IBM Plex Sans", "Inter", "system-ui", "Segoe UI", "Arial", "sans-serif"],
+        display: ["Inter", "IBM Plex Sans", "system-ui", "Segoe UI", "Arial", "sans-serif"],
       },
       borderRadius: {
         none: "0px",

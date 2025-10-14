@@ -4,8 +4,6 @@ Welcome! This project is the Prodex dashboard for OEE and productivity insights.
 
 ## Documentation
 
-- Quickstart (dev & testing): [docs/Quickstart-User-Guide.md](docs/Quickstart-User-Guide.md)
-- Client User Guide (how to use the dashboard): [docs/Prodex-Dashboard-User-Guide.md](docs/Prodex-Dashboard-User-Guide.md)
 
 ## Getting started
 
@@ -15,6 +13,34 @@ Welcome! This project is the Prodex dashboard for OEE and productivity insights.
 
 ## Theme & Fonts
 
+
+The app now supports a single unified demo dataset so every dashboard field can populate without any external systems:
+
+Location: `server/server-data/demo/demo-dataset.json`
+
+Contents (high-level):
+
+```json
+{
+   generatedAt,
+   people: { operators[] },
+   production: { lines[] { machines[] ... }, hourly[] },
+   planning: { articles[], shifts[], assignments[] },
+   quality: { fpy, scrapReasons[] },
+   maintenance: { failureModes[] },
+   analytics: { rootCauses[] }
+}
+```
+
+Client access helpers live in `src/lib/demo.ts` and existing feature clients (e.g. `realtime.ts`, `planning.ts`) first attempt to source from this dataset before calling any API endpoints. This preserves the original fallback pattern but centralizes fake data so updates propagate consistently across all UI sections.
+
+To extend:
+
+1. Add new structure under the JSON file.
+2. Export a slice helper in `demo.ts`.
+3. Update the corresponding `src/lib/<domain>.ts` module to read from the dataset before network fetch.
+
+This approach keeps offline/demo mode realistic while remaining zero-config: absence of `VITE_API_BASE_URL` still works, but even with an API configured you can intentionally rely on the unified dataset for demos.
 This dashboard uses a refined dark theme with black base, grayscale content, and subtle purple/blue accents.
 
 - Primary font: `Objectivity` (commercial license). For legal reasons the font files are not included.

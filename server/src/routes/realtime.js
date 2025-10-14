@@ -158,3 +158,28 @@ router.get('/heatmap', async (req, res) => {
   })));
   res.json(data);
 });
+
+// Aggregated machine + line performance, energy & hourly production demo dataset
+router.get('/machine-performance', async (_req, res) => {
+  try {
+    const data = await readJson('realtime/machine-performance.json', null);
+    if (data) return res.json(data);
+  } catch {}
+  // Fallback stub (small) if file missing
+  return res.json({
+    generatedAt: new Date().toISOString(),
+    lines: [
+      { lineId: 'Line 1', targetPerHour: 700, machines: [ { id: 'M-01', name: 'Demo Machine', good: 1000, scrap: 50, rework: 20, energyKWh: 120, efficiency: 90, availability: 90, performance: 92, quality: 96 } ] }
+    ],
+    hourly: Array.from({length:12}).map((_,i) => ({ hour: String(i).padStart(2,'0')+':00', count: 500 + i*5, energy: 200 + i*3 }))
+  });
+});
+
+// Unified demo dataset (people, production, planning, quality, maintenance, analytics)
+router.get('/demo-dataset', async (_req, res) => {
+  try {
+    const data = await readJson('demo/demo-dataset.json', null);
+    if (data) return res.json(data);
+  } catch {}
+  return res.json({ generatedAt: new Date().toISOString(), production: { lines: [] } });
+});
