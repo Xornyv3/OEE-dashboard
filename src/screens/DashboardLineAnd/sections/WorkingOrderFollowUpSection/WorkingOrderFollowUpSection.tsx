@@ -9,10 +9,13 @@ import { cancelWorkOrder, fetchItemDetails, fetchShiftTypes, type ItemDetails, t
 import { Separator } from "../../../../components/ui/separator";
 import { ClipboardList, Download, Users as UsersIcon, Timer, OctagonX } from "lucide-react";
 import { useAuth } from "../../../../lib/auth";
+import { getIntegrityPolicy } from "../../../../lib/integrity";
 
 export const WorkingOrderFollowUpSection = (): JSX.Element => {
   const { role } = useAuth();
   const viewOnly = role === 'operator';
+  const [manualDisabled, setManualDisabled] = useState<boolean>(true);
+  useEffect(() => { getIntegrityPolicy().then(p => setManualDisabled(p.manualCountsDisabled)); }, []);
   // Local state for orders (could be fetched later)
   const [orders, setOrders] = useState<Array<{
     id: string; product: string; priority: string; status: string; progress: number; startDate: string; dueDate: string; assignedLine: string; plannedQty: number; completedQty: number;
@@ -249,21 +252,22 @@ export const WorkingOrderFollowUpSection = (): JSX.Element => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
+          {manualDisabled && <div className="text-white/70 text-sm">Manual capture disabled by integrity policy. Use connectors.</div>}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
               <div className="text-white/70 text-xs mb-1">Line/Machine</div>
-              <Input className="bg-[#191921] border-[#4F4F59] text-white" placeholder="Line 1 / M-01" />
+              <Input className="bg-[#191921] border-[#4F4F59] text-white" placeholder="Line 1 / M-01" disabled={manualDisabled} />
             </div>
             <div>
               <div className="text-white/70 text-xs mb-1">Reason</div>
-              <Input className="bg-[#191921] border-[#4F4F59] text-white" placeholder="Emergency stop" />
+              <Input className="bg-[#191921] border-[#4F4F59] text-white" placeholder="Emergency stop" disabled={manualDisabled} />
             </div>
             <div>
               <div className="text-white/70 text-xs mb-1">Duration (min)</div>
-              <Input className="bg-[#191921] border-[#4F4F59] text-white" inputMode="numeric" placeholder="10" />
+              <Input className="bg-[#191921] border-[#4F4F59] text-white" inputMode="numeric" placeholder="10" disabled={manualDisabled} />
             </div>
             <div className="flex items-end">
-              <Button className="w-full bg-white text-black hover:bg-white/90">Add (UI)</Button>
+              <Button className="w-full bg-white text-black hover:bg-white/90" disabled={manualDisabled}>Add (UI)</Button>
             </div>
           </div>
           <div className="overflow-x-auto">

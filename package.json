@@ -10,7 +10,11 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "cross-env ROLLUP_DISABLE_NATIVE=1 vite build"
+    "build": "cross-env ROLLUP_DISABLE_NATIVE=1 vite build",
+    "start": "npm --prefix server run start",
+    "server:start": "npm --prefix server run start",
+    "server:dev": "npm --prefix server run dev",
+    "smoke:test": "node ./scripts/smoke-test.mjs"
   },
   "dependencies": {
     "@radix-ui/react-scroll-area": "^1.2.0",

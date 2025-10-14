@@ -41,6 +41,10 @@ export type ProductionCounts = {
   ratePerHour?: number;
 };
 
+export type MinuteOee = { minute: string; availability: number; performance: number; quality: number; oee: number };
+export type MicroStop = { machineId: string; startedAt: string; durationMs: number; reason?: string };
+export type HeatCell = { hour: number; asset: string; oee: number };
+
 const API_BASE = import.meta.env.VITE_API_BASE_URL as string | undefined;
 
 async function safeFetch<T>(path: string, fallback: T): Promise<T> {
@@ -102,4 +106,35 @@ export async function getDowntimeAlerts(): Promise<DowntimeAlert[]> {
 export async function getProductionCounts(): Promise<ProductionCounts> {
   const fallback: ProductionCounts = { total: 1250, good: 1190, scrap: 60, ratePerHour: 210 };
   return safeFetch<ProductionCounts>("/realtime/counts", fallback);
+}
+
+export async function getMinuteOee(line = "Line 1"): Promise<MinuteOee[]> {
+  const now = new Date();
+  const fallback: MinuteOee[] = Array.from({ length: 60 }).map((_, i) => {
+    const d = new Date(now.getTime() - (59 - i) * 60000);
+    const a = 85 + Math.floor(Math.random() * 5);
+    const p = 80 + Math.floor(Math.random() * 8);
+    const q = 95 + Math.floor(Math.random() * 3);
+    const o = Math.round((a / 100) * (p / 100) * (q / 100) * 100);
+    return { minute: d.toISOString().slice(11, 16), availability: a, performance: p, quality: q, oee: o };
+  });
+  return safeFetch<MinuteOee[]>(`/realtime/minute-oee?line=${encodeURIComponent(line)}`, fallback);
+}
+
+export async function getMicroStops(line = "Line 1"): Promise<MicroStop[]> {
+  const fallback: MicroStop[] = [
+    { machineId: "M-01", startedAt: new Date(Date.now() - 120000).toISOString(), durationMs: 4000, reason: "Sensor block" },
+    { machineId: "M-03", startedAt: new Date(Date.now() - 360000).toISOString(), durationMs: 6000 },
+  ];
+  return safeFetch<MicroStop[]>(`/realtime/micro-stops?line=${encodeURIComponent(line)}`, fallback);
+}
+
+export async function getOeeHeatmap(line = "Line 1"): Promise<HeatCell[]> {
+  const assets = ["M-01", "M-02", "M-03", "M-04"];
+  const fallback: HeatCell[] = Array.from({ length: 24 * assets.length }).map((_, idx) => ({
+    hour: Math.floor(idx / assets.length),
+    asset: assets[idx % assets.length],
+    oee: 70 + Math.floor(Math.random() * 25),
+  }));
+  return safeFetch<HeatCell[]>(`/realtime/heatmap?line=${encodeURIComponent(line)}`, fallback);
 }

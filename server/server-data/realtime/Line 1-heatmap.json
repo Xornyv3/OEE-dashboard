@@ -1,0 +1,482 @@
+[
+  {
+    "hour": 0,
+    "asset": "M-01",
+    "oee": 91
+  },
+  {
+    "hour": 0,
+    "asset": "M-02",
+    "oee": 94
+  },
+  {
+    "hour": 0,
+    "asset": "M-03",
+    "oee": 89
+  },
+  {
+    "hour": 0,
+    "asset": "M-04",
+    "oee": 71
+  },
+  {
+    "hour": 1,
+    "asset": "M-01",
+    "oee": 75
+  },
+  {
+    "hour": 1,
+    "asset": "M-02",
+    "oee": 94
+  },
+  {
+    "hour": 1,
+    "asset": "M-03",
+    "oee": 87
+  },
+  {
+    "hour": 1,
+    "asset": "M-04",
+    "oee": 88
+  },
+  {
+    "hour": 2,
+    "asset": "M-01",
+    "oee": 73
+  },
+  {
+    "hour": 2,
+    "asset": "M-02",
+    "oee": 80
+  },
+  {
+    "hour": 2,
+    "asset": "M-03",
+    "oee": 72
+  },
+  {
+    "hour": 2,
+    "asset": "M-04",
+    "oee": 86
+  },
+  {
+    "hour": 3,
+    "asset": "M-01",
+    "oee": 85
+  },
+  {
+    "hour": 3,
+    "asset": "M-02",
+    "oee": 70
+  },
+  {
+    "hour": 3,
+    "asset": "M-03",
+    "oee": 75
+  },
+  {
+    "hour": 3,
+    "asset": "M-04",
+    "oee": 86
+  },
+  {
+    "hour": 4,
+    "asset": "M-01",
+    "oee": 72
+  },
+  {
+    "hour": 4,
+    "asset": "M-02",
+    "oee": 93
+  },
+  {
+    "hour": 4,
+    "asset": "M-03",
+    "oee": 84
+  },
+  {
+    "hour": 4,
+    "asset": "M-04",
+    "oee": 88
+  },
+  {
+    "hour": 5,
+    "asset": "M-01",
+    "oee": 77
+  },
+  {
+    "hour": 5,
+    "asset": "M-02",
+    "oee": 86
+  },
+  {
+    "hour": 5,
+    "asset": "M-03",
+    "oee": 92
+  },
+  {
+    "hour": 5,
+    "asset": "M-04",
+    "oee": 73
+  },
+  {
+    "hour": 6,
+    "asset": "M-01",
+    "oee": 79
+  },
+  {
+    "hour": 6,
+    "asset": "M-02",
+    "oee": 81
+  },
+  {
+    "hour": 6,
+    "asset": "M-03",
+    "oee": 88
+  },
+  {
+    "hour": 6,
+    "asset": "M-04",
+    "oee": 88
+  },
+  {
+    "hour": 7,
+    "asset": "M-01",
+    "oee": 88
+  },
+  {
+    "hour": 7,
+    "asset": "M-02",
+    "oee": 89
+  },
+  {
+    "hour": 7,
+    "asset": "M-03",
+    "oee": 80
+  },
+  {
+    "hour": 7,
+    "asset": "M-04",
+    "oee": 93
+  },
+  {
+    "hour": 8,
+    "asset": "M-01",
+    "oee": 73
+  },
+  {
+    "hour": 8,
+    "asset": "M-02",
+    "oee": 85
+  },
+  {
+    "hour": 8,
+    "asset": "M-03",
+    "oee": 79
+  },
+  {
+    "hour": 8,
+    "asset": "M-04",
+    "oee": 78
+  },
+  {
+    "hour": 9,
+    "asset": "M-01",
+    "oee": 76
+  },
+  {
+    "hour": 9,
+    "asset": "M-02",
+    "oee": 91
+  },
+  {
+    "hour": 9,
+    "asset": "M-03",
+    "oee": 79
+  },
+  {
+    "hour": 9,
+    "asset": "M-04",
+    "oee": 94
+  },
+  {
+    "hour": 10,
+    "asset": "M-01",
+    "oee": 83
+  },
+  {
+    "hour": 10,
+    "asset": "M-02",
+    "oee": 71
+  },
+  {
+    "hour": 10,
+    "asset": "M-03",
+    "oee": 83
+  },
+  {
+    "hour": 10,
+    "asset": "M-04",
+    "oee": 88
+  },
+  {
+    "hour": 11,
+    "asset": "M-01",
+    "oee": 72
+  },
+  {
+    "hour": 11,
+    "asset": "M-02",
+    "oee": 79
+  },
+  {
+    "hour": 11,
+    "asset": "M-03",
+    "oee": 77
+  },
+  {
+    "hour": 11,
+    "asset": "M-04",
+    "oee": 75
+  },
+  {
+    "hour": 12,
+    "asset": "M-01",
+    "oee": 71
+  },
+  {
+    "hour": 12,
+    "asset": "M-02",
+    "oee": 82
+  },
+  {
+    "hour": 12,
+    "asset": "M-03",
+    "oee": 86
+  },
+  {
+    "hour": 12,
+    "asset": "M-04",
+    "oee": 82
+  },
+  {
+    "hour": 13,
+    "asset": "M-01",
+    "oee": 75
+  },
+  {
+    "hour": 13,
+    "asset": "M-02",
+    "oee": 76
+  },
+  {
+    "hour": 13,
+    "asset": "M-03",
+    "oee": 89
+  },
+  {
+    "hour": 13,
+    "asset": "M-04",
+    "oee": 73
+  },
+  {
+    "hour": 14,
+    "asset": "M-01",
+    "oee": 81
+  },
+  {
+    "hour": 14,
+    "asset": "M-02",
+    "oee": 88
+  },
+  {
+    "hour": 14,
+    "asset": "M-03",
+    "oee": 92
+  },
+  {
+    "hour": 14,
+    "asset": "M-04",
+    "oee": 83
+  },
+  {
+    "hour": 15,
+    "asset": "M-01",
+    "oee": 70
+  },
+  {
+    "hour": 15,
+    "asset": "M-02",
+    "oee": 91
+  },
+  {
+    "hour": 15,
+    "asset": "M-03",
+    "oee": 87
+  },
+  {
+    "hour": 15,
+    "asset": "M-04",
+    "oee": 79
+  },
+  {
+    "hour": 16,
+    "asset": "M-01",
+    "oee": 72
+  },
+  {
+    "hour": 16,
+    "asset": "M-02",
+    "oee": 81
+  },
+  {
+    "hour": 16,
+    "asset": "M-03",
+    "oee": 80
+  },
+  {
+    "hour": 16,
+    "asset": "M-04",
+    "oee": 94
+  },
+  {
+    "hour": 17,
+    "asset": "M-01",
+    "oee": 90
+  },
+  {
+    "hour": 17,
+    "asset": "M-02",
+    "oee": 92
+  },
+  {
+    "hour": 17,
+    "asset": "M-03",
+    "oee": 90
+  },
+  {
+    "hour": 17,
+    "asset": "M-04",
+    "oee": 80
+  },
+  {
+    "hour": 18,
+    "asset": "M-01",
+    "oee": 74
+  },
+  {
+    "hour": 18,
+    "asset": "M-02",
+    "oee": 90
+  },
+  {
+    "hour": 18,
+    "asset": "M-03",
+    "oee": 85
+  },
+  {
+    "hour": 18,
+    "asset": "M-04",
+    "oee": 89
+  },
+  {
+    "hour": 19,
+    "asset": "M-01",
+    "oee": 71
+  },
+  {
+    "hour": 19,
+    "asset": "M-02",
+    "oee": 80
+  },
+  {
+    "hour": 19,
+    "asset": "M-03",
+    "oee": 94
+  },
+  {
+    "hour": 19,
+    "asset": "M-04",
+    "oee": 74
+  },
+  {
+    "hour": 20,
+    "asset": "M-01",
+    "oee": 85
+  },
+  {
+    "hour": 20,
+    "asset": "M-02",
+    "oee": 79
+  },
+  {
+    "hour": 20,
+    "asset": "M-03",
+    "oee": 89
+  },
+  {
+    "hour": 20,
+    "asset": "M-04",
+    "oee": 77
+  },
+  {
+    "hour": 21,
+    "asset": "M-01",
+    "oee": 72
+  },
+  {
+    "hour": 21,
+    "asset": "M-02",
+    "oee": 73
+  },
+  {
+    "hour": 21,
+    "asset": "M-03",
+    "oee": 92
+  },
+  {
+    "hour": 21,
+    "asset": "M-04",
+    "oee": 88
+  },
+  {
+    "hour": 22,
+    "asset": "M-01",
+    "oee": 71
+  },
+  {
+    "hour": 22,
+    "asset": "M-02",
+    "oee": 74
+  },
+  {
+    "hour": 22,
+    "asset": "M-03",
+    "oee": 94
+  },
+  {
+    "hour": 22,
+    "asset": "M-04",
+    "oee": 84
+  },
+  {
+    "hour": 23,
+    "asset": "M-01",
+    "oee": 77
+  },
+  {
+    "hour": 23,
+    "asset": "M-02",
+    "oee": 78
+  },
+  {
+    "hour": 23,
+    "asset": "M-03",
+    "oee": 92
+  },
+  {
+    "hour": 23,
+    "asset": "M-04",
+    "oee": 78
+  }
+]

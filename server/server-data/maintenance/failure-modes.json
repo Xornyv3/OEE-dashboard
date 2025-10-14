@@ -1,0 +1,35 @@
+[
+  {
+    "id": "fm1",
+    "name": "Bearing wear",
+    "signals": [
+      "vibration",
+      "temperature"
+    ],
+    "probableCauses": [
+      "Insufficient lubrication",
+      "Contamination"
+    ],
+    "standardFixes": [
+      "Lubricate bearings",
+      "Replace bearing",
+      "Check seals and clean"
+    ]
+  },
+  {
+    "id": "fm2",
+    "name": "Motor overload",
+    "signals": [
+      "amperage",
+      "temperature"
+    ],
+    "probableCauses": [
+      "Over-tensioned belts",
+      "Jammed mechanism"
+    ],
+    "standardFixes": [
+      "Adjust belt tension",
+      "Inspect gearbox & remove debris"
+    ]
+  }
+]

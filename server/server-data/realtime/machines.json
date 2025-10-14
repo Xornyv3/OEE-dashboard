@@ -1,0 +1,20 @@
+[
+  {
+    "id": "M-01",
+    "name": "CNC Mill A",
+    "on": true,
+    "line": "Line 1"
+  },
+  {
+    "id": "M-02",
+    "name": "Lathe B",
+    "on": false,
+    "line": "Line 1"
+  },
+  {
+    "id": "M-03",
+    "name": "Robot Arm C",
+    "on": true,
+    "line": "Line 2"
+  }
+]

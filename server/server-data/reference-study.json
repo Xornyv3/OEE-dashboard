@@ -1,0 +1,19 @@
+{
+  "oeeTargetPct": 85,
+  "fpyTargetPct": 98,
+  "kwhPerGoodTarget": 0.9,
+  "mttrTargetHours": 1,
+  "mtbfTargetHours": 120,
+  "co2PerOrderTargetKg": 120,
+  "byProduct": {
+    "SKU-1001": {
+      "oeeTargetPct": 82
+    }
+  },
+  "byShift": {
+    "Shift A": {
+      "oeeTargetPct": 79
+    }
+  },
+  "updatedAt": "2025-10-12T01:51:18.918Z"
+}

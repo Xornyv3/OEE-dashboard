@@ -61,6 +61,7 @@ export const HeaderSection = (): JSX.Element => {
                 <SelectItem value="manager" className="data-[highlighted]:bg-gray-100">Manager view</SelectItem>
                 <SelectItem value="supervisor" className="data-[highlighted]:bg-gray-100">Supervisor</SelectItem>
                 <SelectItem value="operator" className="data-[highlighted]:bg-gray-100">Worker view</SelectItem>
+                <SelectItem value="executive" className="data-[highlighted]:bg-gray-100">Executive</SelectItem>
               </SelectContent>
             </Select>
           </div>

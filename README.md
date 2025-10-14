@@ -2,6 +2,11 @@
 
 Welcome! This project is the Prodex dashboard for OEE and productivity insights.
 
+## Documentation
+
+- Quickstart (dev & testing): [docs/Quickstart-User-Guide.md](docs/Quickstart-User-Guide.md)
+- Client User Guide (how to use the dashboard): [docs/Prodex-Dashboard-User-Guide.md](docs/Prodex-Dashboard-User-Guide.md)
+
 ## Getting started
 
 > **Prerequisites:**
@@ -18,21 +23,21 @@ This dashboard uses a refined dark theme with black base, grayscale content, and
 To enable Objectivity locally:
 
 1. Place your licensed font files in `public/fonts/`:
-	- `Objectivity-Regular.woff2` and `Objectivity-Regular.woff`
-	- `Objectivity-Medium.woff2` and `Objectivity-Medium.woff` (optional)
-	- `Objectivity-Bold.woff2` and `Objectivity-Bold.woff` (optional)
+   - `Objectivity-Regular.woff2` and `Objectivity-Regular.woff`
+   - `Objectivity-Medium.woff2` and `Objectivity-Medium.woff` (optional)
+   - `Objectivity-Bold.woff2` and `Objectivity-Bold.woff` (optional)
 2. Restart the dev server if running. The CSS includes `@font-face` rules pointing to these files.
 
 If the files are not present, the app will fall back to `Inter` seamlessly.
 To get started with your project, you'll first need to install the dependencies with:
 
-```
+```bash
 npm install
 ```
 
 Then, you'll be able to run a development version of the project with:
 
-```
+```bash
 npm run dev
 ```
 
@@ -42,6 +47,6 @@ After a few seconds, your project should be accessible at the address
 
 If you are satisfied with the result, you can finally build the project for release with:
 
-```
+```bash
 npm run build
 ```

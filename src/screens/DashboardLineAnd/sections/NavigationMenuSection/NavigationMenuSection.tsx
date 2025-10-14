@@ -10,6 +10,11 @@ import {
   InfoIcon,
   TrendingUpIcon,
   GaugeIcon,
+  RadioIcon,
+  WrenchIcon,
+  MicroscopeIcon,
+  BrainIcon,
+  LeafIcon,
 } from "lucide-react";
 import { Button } from "../../../../components/ui/button";
 import { ScrollArea } from "../../../../components/ui/scroll-area";
@@ -28,14 +33,34 @@ export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenu
       tabKey: "dashboard-line-machine" as ActiveTab,
     },
     {
+      title: "Real-time Monitoring",
+      icon: <RadioIcon className="h-7 w-7" />,
+      tabKey: "real-time-monitoring" as ActiveTab,
+    },
+    {
+      title: "Maintenance & PdM",
+      icon: <WrenchIcon className="h-7 w-7" />,
+      tabKey: "maintenance-pdm" as ActiveTab,
+    },
+    {
+      title: "Quality & Traceability",
+      icon: <MicroscopeIcon className="h-7 w-7" />,
+      tabKey: "quality-traceability" as ActiveTab,
+    },
+    {
+      title: "Advanced Analytics",
+      icon: <BrainIcon className="h-7 w-7" />,
+      tabKey: "advanced-analytics" as ActiveTab,
+    },
+    {
+      title: "Role Home",
+      icon: <InfoIcon className="h-7 w-7" />,
+      tabKey: "role-home" as ActiveTab,
+    },
+    {
       title: "Planning & Scheduling",
       icon: <TrendingUpIcon className="h-7 w-7" />,
       tabKey: "planning" as ActiveTab,
-    },
-    {
-      title: "KPI Dashboard",
-      icon: <TrendingUpIcon className="h-7 w-7" />,
-      tabKey: "kpi-dashboard" as ActiveTab,
     },
     {
       title: "Machine & Line Performance",
@@ -46,11 +71,6 @@ export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenu
       title: "Work Order Tracking",
       icon: <ClockIcon className="h-7 w-7" />,
       tabKey: "working-order-follow-up" as ActiveTab,
-    },
-    {
-      title: "Dashboard Downtime/stop",
-      icon: <ClockIcon className="h-7 w-7" />,
-      tabKey: "downtime-stop" as ActiveTab,
     },
     {
       title: "Dashboard Count",
@@ -73,6 +93,11 @@ export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenu
       tabKey: "energy-monitoring" as ActiveTab,
     },
     {
+      title: "Energy & Sustainability",
+      icon: <LeafIcon className="h-7 w-7" />,
+      tabKey: "energy-sustainability" as ActiveTab,
+    },
+    {
       title: "Dashboard Cost & Profit",
       icon: <PieChartIcon className="h-7 w-7" />,
       tabKey: "cost-profit" as ActiveTab,
@@ -88,9 +113,9 @@ export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenu
       tabKey: "settings" as ActiveTab,
     },
     {
-      title: "General Info",
-      icon: <InfoIcon className="h-7 w-7" />,
-      tabKey: "general-info" as ActiveTab,
+      title: "Energy & Sustainability",
+      icon: <LeafIcon className="h-7 w-7" />,
+      tabKey: "energy-sustainability" as ActiveTab,
     },
   ];
 

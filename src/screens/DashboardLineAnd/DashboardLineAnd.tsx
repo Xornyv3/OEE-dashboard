@@ -10,10 +10,9 @@ import { ProductionMetricsSection } from "./sections/ProductionMetricsSection";
 import { GeneralInfoSection } from "./sections/GeneralInfoSection";
 import { WorkingOrderFollowUpSection } from "./sections/WorkingOrderFollowUpSection";
 import { DowntimeStopSection } from "./sections/DowntimeStopSection";
-import { DashboardCountSection } from "./sections/DashboardCountSection";
 import { HistoricalDataSection } from "./sections/HistoricalDataSection";
 import { MachineMaintenanceSection } from "./sections/MachineMaintenanceSection";
-import { EnergyMonitoringSection } from "./sections/EnergyMonitoringSection";
+import { EnergySustainabilitySection } from "./sections/EnergySustainabilitySection";
 import { CostProfitSection } from "./sections/CostProfitSection";
 import { OEEDataInputSection } from "./sections/OEEDataInputSection";
 import { SettingsSection } from "./sections/SettingsSection";
@@ -21,6 +20,11 @@ import { DashboardOverviewSection } from "./sections/DashboardOverviewSection";
 import { MachineLinePerformanceSection } from "./sections/MachineLinePerformanceSection";
 import { KPIDashboardSection } from "./sections/KPIDashboardSection";
 import { PlanningSection } from "./sections/PlanningSection";
+import { RoleHomeSection } from "./sections/RoleHomeSection";
+import { RealTimeMonitoringSection } from "./sections/RealTimeMonitoringSection";
+import { MaintenancePdMSection } from "./sections/MaintenancePdMSection";
+import { QualityTraceabilitySection } from "./sections/QualityTraceabilitySection";
+import { AdvancedAnalyticsSection } from "./sections/AdvancedAnalyticsSection";
 
 export type ActiveTab =
   | "general-info"
@@ -36,6 +40,12 @@ export type ActiveTab =
   | "cost-profit"
   | "oee-data-input"
   | "planning"
+  | "role-home"
+  | "real-time-monitoring"
+  | "maintenance-pdm"
+  | "quality-traceability"
+  | "advanced-analytics"
+  | "energy-sustainability"
   | "settings";
 
 export const DashboardLineAnd = (): JSX.Element => {
@@ -84,14 +94,28 @@ export const DashboardLineAnd = (): JSX.Element => {
         return <WorkingOrderFollowUpSection />;
       case "downtime-stop":
         return <DowntimeStopSection />;
-      case "dashboard-count":
-        return <DashboardCountSection />;
+      // Deprecated: consolidated into Overview/Realtime
+      // case "dashboard-count":
+      //   return <DashboardCountSection />;
       case "historical-data":
         return <HistoricalDataSection />;
       case "machine-maintenance":
         return <MachineMaintenanceSection />;
-      case "energy-monitoring":
-        return <EnergyMonitoringSection />;
+      case "maintenance-pdm":
+        return (
+          <div className="space-y-6">
+            <MaintenancePdMSection />
+          </div>
+        );
+      // Deprecated: replaced by Energy & Sustainability
+      // case "energy-monitoring":
+      //   return <EnergyMonitoringSection />;
+      case "energy-sustainability":
+        return (
+          <div className="space-y-6">
+            <EnergySustainabilitySection />
+          </div>
+        );
       case "cost-profit":
         return <CostProfitSection />;
       case "oee-data-input":
@@ -100,6 +124,30 @@ export const DashboardLineAnd = (): JSX.Element => {
         return (
           <div className="space-y-6">
             <PlanningSection />
+          </div>
+        );
+      case "role-home":
+        return (
+          <div className="space-y-6">
+            <RoleHomeSection />
+          </div>
+        );
+      case "real-time-monitoring":
+        return (
+          <div className="space-y-6">
+            <RealTimeMonitoringSection />
+          </div>
+        );
+      case "quality-traceability":
+        return (
+          <div className="space-y-6">
+            <QualityTraceabilitySection />
+          </div>
+        );
+      case "advanced-analytics":
+        return (
+          <div className="space-y-6">
+            <AdvancedAnalyticsSection />
           </div>
         );
       case "settings":

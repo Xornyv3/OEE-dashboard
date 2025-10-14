@@ -1,0 +1,20 @@
+[
+  {
+    "assetId": "M-01",
+    "kind": "inspection",
+    "at": "2025-10-05T01:51:29.516Z",
+    "notes": "Weekly check OK"
+  },
+  {
+    "assetId": "M-01",
+    "kind": "service",
+    "at": "2025-09-12T01:51:29.516Z",
+    "notes": "Replaced filter and oil"
+  },
+  {
+    "assetId": "M-01",
+    "kind": "failure",
+    "at": "2025-08-28T01:51:29.516Z",
+    "notes": "Minor jam cleared"
+  }
+]

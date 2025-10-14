@@ -1,0 +1,13 @@
+[
+  {
+    "machineId": "M-01",
+    "startedAt": "2025-10-12T01:49:18.910Z",
+    "durationMs": 4000,
+    "reason": "Sensor block"
+  },
+  {
+    "machineId": "M-03",
+    "startedAt": "2025-10-12T01:45:18.910Z",
+    "durationMs": 6000
+  }
+]

@@ -1,0 +1,4 @@
+id,name,on,line
+M-01,CNC Mill A,1,Line 1
+M-02,Lathe B,0,Line 1
+M-03,Robot Arm C,1,Line 2

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "a1",
+    "kind": "performance-dip",
+    "severity": "warning",
+    "line": "Line 1",
+    "happenedAt": "2025-10-12T01:51:18.912Z",
+    "message": "Performance −12% vs baseline (15min)"
+  },
+  {
+    "id": "a2",
+    "kind": "mttr-breach",
+    "severity": "critical",
+    "machineId": "M-02",
+    "happenedAt": "2025-10-12T01:31:18.912Z",
+    "message": "MTTR > 30m on M-02"
+  },
+  {
+    "id": "a3",
+    "kind": "order-at-risk",
+    "severity": "warning",
+    "orderId": "WO-2024-002",
+    "happenedAt": "2025-10-12T01:51:18.912Z",
+    "message": "Order WO-2024-002 at risk due to rate loss"
+  }
+]

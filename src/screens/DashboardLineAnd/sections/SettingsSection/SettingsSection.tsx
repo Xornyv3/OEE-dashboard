@@ -5,9 +5,14 @@ import { Input } from "../../../../components/ui/input";
 import { Switch } from "../../../../components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../../components/ui/table";
-import { LayoutGrid, List, Search, Settings as SettingsIcon, Wrench, Trash2, Pencil } from "lucide-react";
+import { LayoutGrid, List, Search, Settings as SettingsIcon, Wrench, Trash2, Pencil, ShieldCheck, FileClock, Scale, Link2, Activity } from "lucide-react";
+import { useEffect } from "react";
+import { getConnectors, saveConnectors, type Connector, getIntegrityPolicy, saveIntegrityPolicy, listAuditEntries, type AuditEntry, getTaxonomy, saveTaxonomy, getWatchdogs, saveWatchdogs, type WatchdogRule } from "../../../../lib/integrity";
+import { useAuth } from "../../../../lib/auth";
 
 export const SettingsSection = (): JSX.Element => {
+  const { role } = useAuth();
+  const isManager = role !== 'operator';
   const [settings, setSettings] = useState({
     autoRefresh: true,
     refreshInterval: "5",
@@ -89,6 +94,30 @@ export const SettingsSection = (): JSX.Element => {
     }
   ]);
   const deleteMachine = (id: string) => setMachines(prev => prev.filter(m => m.id !== id));
+
+  // Integrity state
+  const [connectors, setConnectors] = useState<Connector[]>([]);
+  const [policy, setPolicy] = useState<{ manualCountsDisabled: boolean; requireTwoPersonApproval: boolean; dualSourceValidationEnabled: boolean }>({ manualCountsDisabled: true, requireTwoPersonApproval: true, dualSourceValidationEnabled: true });
+  const [audit, setAudit] = useState<AuditEntry[]>([]);
+  const [watchdogs, setWatchdogs] = useState<WatchdogRule[]>([]);
+  const [taxonomyVersion, setTaxonomyVersion] = useState<string>("v1");
+
+  useEffect(() => {
+    (async () => {
+      const [c, p, a, t, w] = await Promise.all([
+        getConnectors(),
+        getIntegrityPolicy(),
+        listAuditEntries(),
+        getTaxonomy(),
+        getWatchdogs(),
+      ]);
+      setConnectors(c);
+      setPolicy(p);
+      setAudit(a);
+      setTaxonomyVersion(t.version);
+      setWatchdogs(w);
+    })();
+  }, []);
 
   // Machines UI state
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
@@ -348,6 +377,109 @@ export const SettingsSection = (): JSX.Element => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Data Capture & Integrity */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {/* Connectors */}
+        <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+          <CardHeader>
+            <CardTitle className="text-white text-xl flex items-center gap-2"><Link2 className="w-5 h-5" /> PLC/SCADA/IIoT Connectors</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="text-white/70 text-sm">100% automatic capture via OPC UA / MQTT. Manual runtime/output counts are disabled by policy.</div>
+            <div className="space-y-2">
+              {connectors.map((c, idx) => (
+                <div key={idx} className="p-3 rounded-[6px] border border-white/15 bg-white/5">
+                  <div className="text-white font-medium">{c.kind.toUpperCase()}</div>
+                  <div className="text-white/70 text-sm break-all">{c.kind==='opcua' ? (c as any).endpoint : (c as any).brokerUrl}</div>
+                </div>
+              ))}
+              {connectors.length === 0 && <div className="text-white/60 text-sm">No connectors configured (stub).</div>}
+            </div>
+            {isManager && <Button variant="outline" className="bg-transparent border-white/20 text-white" onClick={()=>saveConnectors(connectors)}>Save Connectors (UI)</Button>}
+          </CardContent>
+        </Card>
+
+        {/* Policy */}
+        <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+          <CardHeader>
+            <CardTitle className="text-white text-xl flex items-center gap-2"><ShieldCheck className="w-5 h-5" /> Integrity Policy</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-white font-medium">Disallow Manual Counts</div>
+                <div className="text-white/70 text-sm">Runtime/output must come from connectors.</div>
+              </div>
+              <Switch checked={policy.manualCountsDisabled} onCheckedChange={(v)=>setPolicy(prev=>({ ...prev, manualCountsDisabled: v }))} disabled={!isManager} />
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-white font-medium">Two-Person Approval</div>
+                <div className="text-white/70 text-sm">Required for KPI-impacting changes.</div>
+              </div>
+              <Switch checked={policy.requireTwoPersonApproval} onCheckedChange={(v)=>setPolicy(prev=>({ ...prev, requireTwoPersonApproval: v }))} disabled={!isManager} />
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-white font-medium">Dual-Source Validation</div>
+                <div className="text-white/70 text-sm">Cross-check cycles vs. electrical load.</div>
+              </div>
+              <Switch checked={policy.dualSourceValidationEnabled} onCheckedChange={(v)=>setPolicy(prev=>({ ...prev, dualSourceValidationEnabled: v }))} disabled={!isManager} />
+            </div>
+            {isManager && <Button onClick={()=>saveIntegrityPolicy(policy)}>Save Policy</Button>}
+          </CardContent>
+        </Card>
+
+        {/* Audit trail */}
+        <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+          <CardHeader>
+            <CardTitle className="text-white text-xl flex items-center gap-2"><FileClock className="w-5 h-5" /> Immutable Audit Trail</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="text-white/70 text-sm">Every edit/override is logged (who/when/why). Two-person approvals reflected below.</div>
+            <div className="space-y-2 max-h-60 overflow-auto hide-scrollbar">
+              {audit.map((e)=> (
+                <div key={e.id} className="p-3 rounded-[6px] border border-white/15 bg-white/5">
+                  <div className="text-white text-sm">{e.when} — <span className="font-medium">{e.who}</span> • {e.action}</div>
+                  {e.why && <div className="text-white/70 text-xs">Reason: {e.why}</div>}
+                  {e.approval && <div className="text-white/70 text-xs">Approval: {e.approval.status}{e.approval.approver?` by ${e.approval.approver}`:''}</div>}
+                </div>
+              ))}
+              {audit.length===0 && <div className="text-white/60 text-sm">No audit entries yet (stub).</div>}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Taxonomy & Watchdogs */}
+        <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
+          <CardHeader>
+            <CardTitle className="text-white text-xl flex items-center gap-2"><Scale className="w-5 h-5" /> Loss Taxonomy & Watchdogs</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="rounded-[6px] border border-white/15 bg-white/5 p-3">
+              <div className="text-white/80 text-sm">KPI Dictionary Version</div>
+              <div className="text-white text-lg font-semibold">{taxonomyVersion}</div>
+              {isManager && <Button variant="outline" className="mt-2 bg-transparent border-white/20 text-white" onClick={async()=>{ const t=await getTaxonomy(); await saveTaxonomy(t); const n=await getTaxonomy(); setTaxonomyVersion(n.version); }}>Bump Version (UI)</Button>}
+            </div>
+            <div className="space-y-2">
+              <div className="text-white/80 text-sm flex items-center gap-2"><Activity className="w-4 h-4" /> Data Quality Watchdogs</div>
+              <div className="space-y-2">
+                {watchdogs.map(w => (
+                  <div key={w.id} className="flex items-center justify-between p-3 rounded-[6px] border border-white/15 bg-white/5">
+                    <div>
+                      <div className="text-white text-sm font-medium">{w.name}</div>
+                      <div className="text-white/60 text-xs">{w.condition} • {w.severity}</div>
+                    </div>
+                    <Switch checked={w.enabled} onCheckedChange={(v)=>setWatchdogs(prev=>prev.map(x=>x.id===w.id?{...x, enabled:v}:x))} disabled={!isManager} />
+                  </div>
+                ))}
+                {isManager && <Button onClick={()=>saveWatchdogs(watchdogs)}>Save Watchdogs</Button>}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
   {/* General Settings */}
       <Card className="bg-white/10 backdrop-blur-sm border border-white/20">
         <CardHeader>
