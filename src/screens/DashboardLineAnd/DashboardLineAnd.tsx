@@ -64,13 +64,13 @@ export const DashboardLineAnd = (): JSX.Element => {
             {/* New non-editable overview at the top */}
             <DashboardOverviewSection />
 
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <MachineStatusSection />
               <ProductionMetricsSection />
             </div>
             <DailyProductionOverviewSection />
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-              <div className="xl:col-span-2 space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+              <div className="lg:col-span-2 space-y-4 sm:space-y-6">
                 <ErrorRateChartSection />
                 <DataRefreshSection />
               </div>
@@ -158,7 +158,7 @@ export const DashboardLineAnd = (): JSX.Element => {
   };
 
   return (
-    <div className="bg-[#020202] text-white flex w-screen min-h-screen relative overflow-hidden hide-scrollbar font-sans">
+  <div className="bg-[#020202] text-white flex w-screen min-h-screen relative overflow-hidden hide-scrollbar font-sans">
       {/* Futuristic decorative background: subtle grid + multi-color gradient orbs (no animations) */}
       <div className="pointer-events-none absolute inset-0 z-0">
         {/* faint grid */}
@@ -182,7 +182,7 @@ export const DashboardLineAnd = (): JSX.Element => {
       </div>
       
       {/* Left Navigation Menu */}
-      <aside className="group w-20 hover:w-72 transition-all duration-200 ease-in-out flex-shrink-0 relative z-10 border-r border-[#4F4F59] bg-[#020202]">
+      <aside className="hidden sm:block group w-20 hover:w-72 transition-all duration-200 ease-in-out flex-shrink-0 relative z-10 border-r border-[#4F4F59] bg-[#020202]">
         <NavigationMenuSection activeTab={activeTab} onTabChange={setActiveTab} />
       </aside>
 
@@ -192,7 +192,7 @@ export const DashboardLineAnd = (): JSX.Element => {
         <HeaderSection />
 
         {/* Main Dashboard Content */}
-        <div className="flex-1 p-8 overflow-auto hide-scrollbar bg-transparent">
+        <div className="flex-1 p-4 sm:p-6 md:p-8 overflow-auto hide-scrollbar bg-transparent">
           <div className="max-w-7xl mx-auto">
             <div>
               {renderContent()}

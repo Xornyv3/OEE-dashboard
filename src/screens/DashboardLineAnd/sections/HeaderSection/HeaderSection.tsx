@@ -16,14 +16,14 @@ export const HeaderSection = (): JSX.Element => {
   });
 
   return (
-  <header className="w-full border-b border-[#4F4F59] px-8 py-6 bg-[#020202]">
-      <div className="flex items-center justify-between">
+  <header className="w-full border-b border-[#4F4F59] px-4 sm:px-6 md:px-8 py-4 md:py-6 bg-[#020202]">
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         {/* Dashboard title */}
         <div className="relative z-10">
-          <h1 className="font-display font-bold text-white text-[38px] leading-[44px] tracking-tight uppercase">
-            Prodex
+          <h1 className="font-display font-bold text-white text-2xl sm:text-3xl md:text-[38px] md:leading-[44px] tracking-tight uppercase">
+            Optimo
           </h1>
-          <div className="flex items-center gap-3 mt-2">
+          <div className="flex items-center flex-wrap gap-2 sm:gap-3 mt-2">
             <p className="text-[#9B9BA6] text-[14px] leading-[20px] font-medium tracking-normal">Smart OEE & Productivity Dashboard</p>
             {/* Build tag to verify production updates */}
             <span
@@ -36,25 +36,25 @@ export const HeaderSection = (): JSX.Element => {
         </div>
 
     {/* Search, Role Switcher and DateTime */}
-  <div className="flex items-center gap-6 relative z-10 mr-12">
+  <div className="flex items-center gap-3 sm:gap-4 md:gap-6 relative z-10 md:mr-12 flex-wrap">
           {/* Status Indicator */}
-          <div className="flex items-center gap-3 px-4 py-2 rounded-[6px] border border-[#4F4F59] bg-[#191921]">
+          <div className="hidden sm:flex items-center gap-3 px-3 sm:px-4 py-2 rounded-[6px] border border-[#4F4F59] bg-[#191921]">
             <div className="w-2.5 h-2.5 rounded-full bg-white"></div>
             <span className="text-white text-sm font-medium">System Online</span>
           </div>
           
-          <div className="relative">
-            <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[#9B9BA6]" />
+          <div className="relative w-full sm:w-auto">
+            <SearchIcon className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-[#9B9BA6]" />
             <Input
-              className="w-[320px] pl-12 pr-4 py-3 bg-[#151518] text-white border border-[#4F4F59] rounded-[6px] placeholder:text-[#9B9BA6] focus-visible:border-action-interactiveBlue font-sans"
+              className="w-full sm:w-[280px] md:w-[320px] pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 bg-[#151518] text-white border border-[#4F4F59] rounded-[6px] placeholder:text-[#9B9BA6] focus-visible:border-action-interactiveBlue font-sans"
               placeholder="Search here..."
             />
           </div>
           
           {/* Role switcher: Manager vs Worker */}
-          <div className="min-w-[200px]">
+          <div className="min-w-[160px] sm:min-w-[200px] w-full sm:w-auto">
             <Select value={role} onValueChange={v => setRole(v as any)}>
-              <SelectTrigger className="h-10 bg-[#151518] text-white border border-[#4F4F59] rounded-[6px]">
+              <SelectTrigger className="h-10 bg-[#151518] text-white border border-[#4F4F59] rounded-[6px] w-full">
                 <SelectValue placeholder="Select mode" />
               </SelectTrigger>
               <SelectContent className="bg-white text-black border border-gray-200">
@@ -66,7 +66,7 @@ export const HeaderSection = (): JSX.Element => {
             </Select>
           </div>
 
-          <div className="px-6 py-3 rounded-[6px] border border-[#4F4F59] bg-[#191921]">
+          <div className="hidden sm:block px-4 sm:px-6 py-2.5 sm:py-3 rounded-[6px] border border-[#4F4F59] bg-[#191921]">
             <div className="text-white text-sm font-sans font-medium tracking-normal">
               {currentDateTime}
             </div>

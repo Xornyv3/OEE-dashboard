@@ -1,3 +1,5 @@
+import { getApiBase } from './utils';
+const API_BASE = getApiBase();
 export type MachineStatus = {
   id: string;
   name: string;
@@ -45,7 +47,7 @@ export type MinuteOee = { minute: string; availability: number; performance: num
 export type MicroStop = { machineId: string; startedAt: string; durationMs: number; reason?: string };
 export type HeatCell = { hour: number; asset: string; oee: number };
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL as string | undefined;
+// API_BASE resolved above via getApiBase()
 
 async function safeFetch<T>(path: string, fallback: T): Promise<T> {
   if (!API_BASE) return fallback;

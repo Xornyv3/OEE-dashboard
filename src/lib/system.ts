@@ -12,7 +12,8 @@ export type ActiveUser = {
   lastSeen: string;
 };
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL as string | undefined;
+import { getApiBase } from './utils';
+const API_BASE = getApiBase();
 
 async function safeFetch<T>(path: string, fallback: T): Promise<T> {
   if (!API_BASE) return fallback;

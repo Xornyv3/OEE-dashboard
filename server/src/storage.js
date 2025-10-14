@@ -2,7 +2,9 @@ import { readFile, writeFile, mkdir } from 'fs/promises';
 import { dirname, resolve } from 'path';
 import { parse } from 'csv-parse/sync';
 
-const DATA_DIR = resolve(process.cwd(), 'server-data');
+// Prefer the server/server-data dir relative to this file at runtime,
+// falling back to process.cwd() for local dev.
+const DATA_DIR = resolve(dirname(new URL(import.meta.url).pathname), '..', 'server-data');
 
 async function ensureDir(path) {
   try { await mkdir(path, { recursive: true }); } catch {}
@@ -22,8 +24,11 @@ export async function readJson(rel, fallback) {
 
 export async function writeJson(rel, value) {
   const file = resolve(DATA_DIR, rel);
-  await ensureDir(dirname(file));
-  await writeFile(file, JSON.stringify(value, null, 2), 'utf8');
+  // On serverless (read-only), writing may fail; swallow errors.
+  try {
+    await ensureDir(dirname(file));
+    await writeFile(file, JSON.stringify(value, null, 2), 'utf8');
+  } catch {}
 }
 
 export async function readCsv(rel, options = {}) {
@@ -44,12 +49,14 @@ export async function readCsv(rel, options = {}) {
 
 export async function writeCsv(rel, rows, options = {}) {
   const file = resolve(DATA_DIR, rel);
-  await ensureDir(dirname(file));
-  if (!Array.isArray(rows) || rows.length === 0) {
-    await writeFile(file, '', 'utf8');
-    return;
-  }
-  const headers = options.headers || Object.keys(rows[0]);
-  const csv = [headers.join(','), ...rows.map(r => headers.map(h => r[h] ?? '').join(','))].join('\n');
-  await writeFile(file, csv + '\n', 'utf8');
+  try {
+    await ensureDir(dirname(file));
+    if (!Array.isArray(rows) || rows.length === 0) {
+      await writeFile(file, '', 'utf8');
+      return;
+    }
+    const headers = options.headers || Object.keys(rows[0]);
+    const csv = [headers.join(','), ...rows.map(r => headers.map(h => r[h] ?? '').join(','))].join('\n');
+    await writeFile(file, csv + '\n', 'utf8');
+  } catch {}
 }
