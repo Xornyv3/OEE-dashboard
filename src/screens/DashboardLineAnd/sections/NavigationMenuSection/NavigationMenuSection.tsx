@@ -115,15 +115,12 @@ export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenu
 
   return (
     <nav className="h-full w-full relative bg-[#020202] overflow-hidden transition-all duration-300 ease-out flex flex-col">
-      <div className="flex items-center justify-center py-4 sticky top-0 z-30 bg-[#020202] border-b border-[#4F4F59]">
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-10 relative">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-label="Blue Upgrade Technology logo" className="w-10 h-10">
-              <rect x="4" y="4" width="16" height="16" transform="rotate(45 12 12)" rx="2.5" ry="2.5" className="fill-blue-500/20 stroke-blue-400" strokeWidth="1.5" />
-              <circle cx="12" cy="12" r="4" className="fill-white" />
-            </svg>
-          </div>
-          <span className="text-[11px] font-semibold leading-tight tracking-wide text-white whitespace-pre hidden group-hover:inline-block xl:inline-block">BLUE\nUPGRADE</span>
+      <div className="flex items-center justify-center py-5 sticky top-0 z-30 bg-[#020202] border-b border-[#4F4F59]">
+        <div className="w-16 h-16 relative">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-label="Blue Upgrade Technology logo" className="w-16 h-16">
+            <rect x="4" y="4" width="16" height="16" transform="rotate(45 12 12)" rx="2.5" ry="2.5" className="fill-blue-500/30 stroke-blue-400" strokeWidth="1.8" />
+            <circle cx="12" cy="12" r="4.5" className="fill-white" />
+          </svg>
         </div>
       </div>
       <ScrollArea className="h-full hide-scrollbar flex-1">

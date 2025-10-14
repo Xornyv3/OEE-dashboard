@@ -17,15 +17,20 @@ export const HeaderSection = (): JSX.Element => {
 
   return (
   <header className="w-full border-b border-[#4F4F59] px-4 sm:px-6 md:px-8 py-4 md:py-5 bg-[#020202]">
-    <div className="space-y-4">
-      {/* Row 1: Title (single line) + status/time/role */}
-      <div className="flex items-start justify-between gap-6 flex-wrap">
-        <div className="relative z-10 min-w-0">
-          <h1 className="font-display font-bold text-white text-2xl sm:text-3xl md:text-[38px] md:leading-[44px] tracking-tight uppercase whitespace-nowrap">
-            Blue Upgrade Technology
-          </h1>
+    <div className="max-w-7xl mx-auto">
+      {/* Top bar: left (title+subtitle) and right (status/time/role), vertically centered */}
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-4">
+        <div className="min-w-0">
+          <div className="flex flex-col justify-center">
+            <h1 className="font-display font-bold text-white text-2xl sm:text-3xl md:text-[38px] md:leading-[44px] tracking-tight uppercase whitespace-nowrap">
+              Blue Upgrade Technology
+            </h1>
+            <p className="text-[#9B9BA6] text-[14px] leading-[20px] font-medium tracking-normal mt-1">
+              Smart OEE & Productivity Dashboard
+            </p>
+          </div>
         </div>
-        <div className="flex items-center gap-3 sm:gap-4 md:gap-5 flex-wrap justify-end">
+        <div className="flex items-center justify-end gap-3 sm:gap-4 md:gap-5 flex-wrap">
           <div className="hidden sm:flex items-center gap-3 px-3 sm:px-4 py-2 rounded-[6px] border border-[#4F4F59] bg-[#191921]">
             <div className="w-2.5 h-2.5 rounded-full bg-white"></div>
             <span className="text-white text-sm font-medium">System Online</span>
@@ -49,12 +54,9 @@ export const HeaderSection = (): JSX.Element => {
           </div>
         </div>
       </div>
-      {/* Row 2: Tagline + Search */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4">
-        <p className="text-[#9B9BA6] text-[14px] leading-[20px] font-medium tracking-normal">
-          Smart OEE & Productivity Dashboard
-        </p>
-        <div className="relative w-full max-w-md lg:ml-auto">
+      {/* Second row: Search aligned to the right, unchanged */}
+      <div className="mt-4 flex items-center gap-4">
+        <div className="relative w-full max-w-md ml-auto">
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9B9BA6]" />
           <Input
             className="w-full pl-10 pr-4 py-2.5 bg-[#151518] text-white border border-[#4F4F59] rounded-[6px] placeholder:text-[#9B9BA6] focus-visible:border-action-interactiveBlue font-sans"
