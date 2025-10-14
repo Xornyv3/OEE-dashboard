@@ -158,7 +158,13 @@
 /* Hide scrollbars globally while maintaining scroll functionality */
 .hide-scrollbar {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+}
+
+/* Progressive enhancement: apply only in browsers that support it (Firefox) */
+@supports (scrollbar-width: none) {
+  .hide-scrollbar {
+    scrollbar-width: none;  /* Firefox */
+  }
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -395,3 +401,19 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Optional subtle hover elevate */
 .accent-card:hover { box-shadow: 0 4px 24px -6px rgba(0,0,0,0.4), 0 0 0 1px var(--accent-color)/20; }
+
+/* === Status / semantic color text & badge utilities === */
+@layer utilities {
+  .text-status-good { color: #05C168; }
+  .text-status-warn { color: #FF9E2C; }
+  .text-status-bad { color: #FF5A65; }
+  .text-status-info { color: #1D88FE; }
+  .bg-tint-good { background: rgba(5,193,104,0.12); }
+  .bg-tint-warn { background: rgba(255,158,44,0.15); }
+  .bg-tint-bad { background: rgba(255,90,101,0.15); }
+  .bg-tint-info { background: rgba(29,136,254,0.15); }
+  .border-status-good { border-color: #05C168; }
+  .border-status-warn { border-color: #FF9E2C; }
+  .border-status-bad { border-color: #FF5A65; }
+  .border-status-info { border-color: #1D88FE; }
+}

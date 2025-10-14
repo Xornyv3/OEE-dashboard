@@ -4,7 +4,6 @@ Welcome! This project is the Prodex dashboard for OEE and productivity insights.
 
 ## Documentation
 
-
 ## Getting started
 
 > **Prerequisites:**
@@ -12,7 +11,6 @@ Welcome! This project is the Prodex dashboard for OEE and productivity insights.
 > install it beforehand if you haven't already.
 
 ## Theme & Fonts
-
 
 The app now supports a single unified demo dataset so every dashboard field can populate without any external systems:
 

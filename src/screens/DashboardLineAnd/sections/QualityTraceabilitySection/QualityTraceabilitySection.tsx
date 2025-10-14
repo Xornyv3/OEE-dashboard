@@ -33,10 +33,19 @@ export const QualityTraceabilitySection = (): JSX.Element => {
           <CardHeader><CardTitle className="text-white text-xl">FPY / Scrap / Rework</CardTitle></CardHeader>
           <CardContent>
             {fpy && (
-              <div className="text-white/80 space-y-1">
-                <div>FPY: {fpy.fpyPct}%</div>
-                <div>Scrap: {fpy.scrapPct}%</div>
-                <div>Rework: {fpy.reworkPct}%</div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between bg-tint-good/50 rounded px-2 py-1">
+                  <span className="text-white/60 text-sm">FPY</span>
+                  <span className="text-status-good font-semibold">{fpy.fpyPct}%</span>
+                </div>
+                <div className="flex items-center justify-between bg-tint-bad/40 rounded px-2 py-1">
+                  <span className="text-white/60 text-sm">Scrap</span>
+                  <span className="text-status-bad font-semibold">{fpy.scrapPct}%</span>
+                </div>
+                <div className="flex items-center justify-between bg-tint-warn/40 rounded px-2 py-1">
+                  <span className="text-white/60 text-sm">Rework</span>
+                  <span className="text-status-warn font-semibold">{fpy.reworkPct}%</span>
+                </div>
               </div>
             )}
           </CardContent>
@@ -47,13 +56,16 @@ export const QualityTraceabilitySection = (): JSX.Element => {
             <Table>
               <TableHeader><TableRow className="border-white/20"><TableHead className="text-white/70">Reason</TableHead><TableHead className="text-white/70">Count</TableHead><TableHead className="text-white/70">Context</TableHead></TableRow></TableHeader>
               <TableBody>
-                {scrap.map((r, idx) => (
-                  <TableRow key={idx} className="border-white/10">
-                    <TableCell className="text-white/80">{r.reason}</TableCell>
-                    <TableCell className="text-white/80">{r.count}</TableCell>
-                    <TableCell className="text-white/80 text-sm">{[r.lot && `Lot ${r.lot}`, r.tool && `Tool ${r.tool}`, r.cavity && `Cavity ${r.cavity}`, r.operator && `Op ${r.operator}`].filter(Boolean).join(' • ')}</TableCell>
-                  </TableRow>
-                ))}
+                {scrap.map((r, idx) => {
+                  const severityClass = r.count > 15 ? 'text-status-bad' : r.count > 10 ? 'text-status-warn' : 'text-status-good';
+                  return (
+                    <TableRow key={idx} className="border-white/10">
+                      <TableCell className="text-white/80">{r.reason}</TableCell>
+                      <TableCell className={`font-semibold ${severityClass}`}>{r.count}</TableCell>
+                      <TableCell className="text-white/70 text-xs">{[r.lot && `Lot ${r.lot}`, r.tool && `Tool ${r.tool}`, r.cavity && `Cavity ${r.cavity}`, r.operator && `Op ${r.operator}`].filter(Boolean).join(' • ')}</TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </CardContent>
@@ -80,7 +92,7 @@ export const QualityTraceabilitySection = (): JSX.Element => {
         <Card>
           <CardHeader><CardTitle className="text-white text-xl">Vision: Defect Heatmap</CardTitle></CardHeader>
           <CardContent>
-            <div className="grid grid-cols-20 gap-0.5">
+            <div className="grid grid-cols-20 gap-0.5 max-h-64 overflow-y-auto pr-1">
               {vision.map((c, idx) => {
                 const d = Math.max(0, Math.min(1, c.density));
                 const band = d > 0.8 ? 'bg-red-600' : d > 0.6 ? 'bg-red-500' : d > 0.4 ? 'bg-orange-500' : d > 0.2 ? 'bg-yellow-500' : 'bg-emerald-500';
@@ -91,7 +103,7 @@ export const QualityTraceabilitySection = (): JSX.Element => {
         </Card>
         <Card>
           <CardHeader><CardTitle className="text-white text-xl flex items-center gap-2"><SearchIcon className="w-5 h-5"/> e-Traceability</CardTitle></CardHeader>
-          <CardContent>
+          <CardContent className="max-h-64 overflow-y-auto">
             <div className="flex items-center gap-2 mb-3">
               <input aria-label="Lot" className="bg-white/5 border border-white/10 rounded-[6px] px-2 py-1 text-white/90" value={lot} onChange={(e)=>setLot(e.currentTarget.value)} />
             </div>

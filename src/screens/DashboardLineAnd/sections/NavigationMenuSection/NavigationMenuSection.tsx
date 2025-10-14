@@ -118,7 +118,7 @@ export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenu
       <ScrollArea className="h-full hide-scrollbar">
         <div className="flex flex-col items-center py-6 space-y-2 transition-all duration-300 ease-out">
           {/* Compact Logo */}
-          <div className="w-12 h-12 rounded-[6px] border border-[#4F4F59] bg-[#191921] flex items-center justify-center mx-auto">
+          <div className="w-12 h-12 rounded-[6px] border border-[#4F4F59] bg-[#191921] flex items-center justify-center mx-auto sticky top-4 z-20">
             {/* Minimal logo: small tilted diamond with a centered dot */}
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-label="Logo">
               <rect x="4" y="4" width="16" height="16" transform="rotate(45 12 12)" rx="2.5" ry="2.5" className="fill-white/10 stroke-white" strokeWidth="1.5" />
