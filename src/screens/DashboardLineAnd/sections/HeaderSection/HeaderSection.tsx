@@ -30,7 +30,7 @@ export const HeaderSection = (): JSX.Element => {
               title="Build identifier"
               className="px-2 py-0.5 rounded-[6px] border border-[#4F4F59] bg-[#191921] text-white/80 text-[12px] leading-[16px]"
             >
-              Build v2
+              Build v3
             </span>
           </div>
         </div>
