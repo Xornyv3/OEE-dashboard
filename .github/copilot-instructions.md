@@ -1,4 +1,4 @@
-# AI guide for Prodex (OEE-dashboard)
+# AI guide for Blue Upgrade Technology (formerly Prodex)
 
 Goal: make AI agents productive fast with repo-specific patterns. Keep answers concrete; follow these conventions.
 

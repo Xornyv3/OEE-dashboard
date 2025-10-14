@@ -52,7 +52,7 @@ async function safePost<T>(path: string, body: unknown, fallback: T): Promise<T>
 }
 
 export async function getAlertPolicy(): Promise<AlertPolicy> {
-  const local = localStorage.getItem('prodex.alerts.policy');
+  const local = localStorage.getItem('but.alerts.policy');
   const fallback: AlertPolicy = local ? JSON.parse(local) : {
     mttrMinutes: 30,
     performanceDipPct: 10,
@@ -69,7 +69,7 @@ export async function getAlertPolicy(): Promise<AlertPolicy> {
 }
 
 export async function saveAlertPolicy(p: AlertPolicy): Promise<{ success: boolean }>{
-  localStorage.setItem('prodex.alerts.policy', JSON.stringify(p));
+  localStorage.setItem('but.alerts.policy', JSON.stringify(p));
   return safePost('/alerts/policy', p, { success: true });
 }
 

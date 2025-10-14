@@ -4,5 +4,5 @@ import { createApp } from './app.js';
 const app = createApp();
 const port = Number(process.env.PORT || 4000);
 app.listen(port, () => {
-  console.log(`Optimo backend listening on http://localhost:${port}`);
+  console.log(`Blue Upgrade Technology backend listening on http://localhost:${port}`);
 });

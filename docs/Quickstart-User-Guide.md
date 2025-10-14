@@ -1,6 +1,6 @@
-# Prodex Dashboard — Quickstart User Guide
+# Blue Upgrade Technology Dashboard — Quickstart User Guide
 
-This short guide shows how to run the app, click through the main screens, and quickly verify everything works (frontend + backend).
+This short guide shows how to run the Blue Upgrade Technology app, click through the main screens, and quickly verify everything works (frontend + backend).
 
 ## 1) Start the app
 

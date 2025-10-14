@@ -1,5 +1,5 @@
 /*
- Simple smoke tests for Prodex dev environment.
+ Simple smoke tests for Blue Upgrade Technology dev environment.
  Requires the dev servers to be running:
   - Backend: http://localhost:4000
   - Frontend (Vite): http://localhost:5173
@@ -57,7 +57,7 @@ function httpRequestRaw(urlStr, ms = 5000) {
     req.end();
   });
 }
-
+      //  Simple smoke tests for Blue Upgrade Technology dev environment.
 async function getJson(url, ms = 5000, retries = 3) {
   let lastErr;
   for (let i = 0; i < retries; i++) {

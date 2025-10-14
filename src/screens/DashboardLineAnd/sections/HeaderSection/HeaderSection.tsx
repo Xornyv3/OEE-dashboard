@@ -21,7 +21,7 @@ export const HeaderSection = (): JSX.Element => {
         {/* Dashboard title */}
         <div className="relative z-10">
           <h1 className="font-display font-bold text-white text-2xl sm:text-3xl md:text-[38px] md:leading-[44px] tracking-tight uppercase">
-            Optimo
+            Blue Upgrade Technology
           </h1>
           <div className="flex items-center flex-wrap gap-2 sm:gap-3 mt-2">
             <p className="text-[#9B9BA6] text-[14px] leading-[20px] font-medium tracking-normal">Smart OEE & Productivity Dashboard</p>

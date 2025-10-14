@@ -6,7 +6,7 @@ param(
   [switch]$BackendOnly
 )
 
-Write-Host "[dev-up] Starting Prodex dev environment (PowerShell)" -ForegroundColor Cyan
+Write-Host "[dev-up] Starting Blue Upgrade Technology dev environment (PowerShell)" -ForegroundColor Cyan
 
 $ErrorActionPreference = 'Continue'
 

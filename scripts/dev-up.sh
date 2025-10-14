@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Prodex dev-up: one command to run backend + frontend with optional Influx Cloud
+# Blue Upgrade Technology dev-up: one command to run backend + frontend with optional Influx Cloud
 # - Safe to run multiple times; installs deps if needed
 # - Non-fatal (no-echec): logs errors and keeps going when possible
 # - Requires: bash, node>=20, npm, curl

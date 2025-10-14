@@ -11,7 +11,7 @@ export const GeneralInfoSection = (): JSX.Element => {
   const [users, setUsers] = useState<ActiveUser[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const storageKey = "prodex.generalInfo.lastUpdate";
+  const storageKey = "but.generalInfo.lastUpdate";
   const [lastUpdate, setLastUpdate] = useState<string | null>(() => {
     try { return localStorage.getItem(storageKey); } catch { return null; }
   });

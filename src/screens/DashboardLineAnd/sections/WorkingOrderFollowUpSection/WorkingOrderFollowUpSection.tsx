@@ -59,13 +59,13 @@ export const WorkingOrderFollowUpSection = (): JSX.Element => {
   ]);
 
   // Shift parameterization
-  const [shiftMode, setShiftMode] = useState<"manual" | "erp">(() => (localStorage.getItem("prodex.shiftMode") as any) || "manual");
+  const [shiftMode, setShiftMode] = useState<"manual" | "erp">(() => (localStorage.getItem("but.shiftMode") as any) || "manual");
   const [manualShift, setManualShift] = useState<{ name: string; start: string; end: string; breakMinutes: string }>(() => {
-    const saved = localStorage.getItem("prodex.shiftManual");
+  const saved = localStorage.getItem("but.shiftManual");
     return saved ? JSON.parse(saved) : { name: "Custom", start: "06:00", end: "14:00", breakMinutes: "30" };
   });
   const [erpShifts, setErpShifts] = useState<ShiftInfo[]>([]);
-  const [selectedErpShift, setSelectedErpShift] = useState<string>(() => localStorage.getItem("prodex.shiftErpSelected") || "");
+  const [selectedErpShift, setSelectedErpShift] = useState<string>(() => localStorage.getItem("but.shiftErpSelected") || "");
 
   useEffect(() => {
     if (shiftMode === "erp") {
@@ -74,13 +74,13 @@ export const WorkingOrderFollowUpSection = (): JSX.Element => {
   }, [shiftMode]);
 
   useEffect(() => {
-    localStorage.setItem("prodex.shiftMode", shiftMode);
+  localStorage.setItem("but.shiftMode", shiftMode);
   }, [shiftMode]);
   useEffect(() => {
-    localStorage.setItem("prodex.shiftManual", JSON.stringify(manualShift));
+  localStorage.setItem("but.shiftManual", JSON.stringify(manualShift));
   }, [manualShift]);
   useEffect(() => {
-    localStorage.setItem("prodex.shiftErpSelected", selectedErpShift);
+  localStorage.setItem("but.shiftErpSelected", selectedErpShift);
   }, [selectedErpShift]);
 
   const appliedShift = useMemo(() => {

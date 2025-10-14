@@ -1,4 +1,4 @@
-# Deploying Prodex (Vite + React)
+# Deploying Blue Upgrade Technology (Vite + React)
 
 This app is a static SPA built with Vite. The build output is in `dist/`.
 

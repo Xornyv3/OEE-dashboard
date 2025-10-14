@@ -1,6 +1,6 @@
-# Prodex Dashboard — Client User Guide
+# Blue Upgrade Technology Dashboard — Client User Guide
 
-Welcome to Prodex — your window into real‑time production performance. This guide is for operators, supervisors, and managers. It explains how to use each section of the dashboard and what every KPI means, with practical tips to act on insights.
+Welcome to Blue Upgrade Technology — your window into real‑time production performance. This guide is for operators, supervisors, and managers. It explains how to use each section of the dashboard and what every KPI means, with practical tips to act on insights.
 
 ## What is OEE?
 
@@ -110,8 +110,8 @@ Example: 90% Availability × 85% Performance × 98% Quality ≈ 75% OEE.
 
 ## FAQs
 
-- Why do I see realistic sample data? When live data isn’t connected, Prodex shows lifelike samples so you can train and plan without downtime.
+- Why do I see realistic sample data? When live data isn’t connected, Blue Upgrade Technology shows lifelike samples so you can train and plan without downtime.
 - Which tabs are read‑only? All sections are read‑only by default; any writes occur via integrations configured by your admin.
 - Can I change targets? Targets are maintained by admins in the Reference/ERP systems; ask your lead to update them.
 
-If you need a brief live tour or onboarding session, reach out to your admin or CI lead. Prodex is designed to make wins visible and losses actionable, fast.
+If you need a brief live tour or onboarding session, reach out to your admin or CI lead. Blue Upgrade Technology is designed to make wins visible and losses actionable, fast.

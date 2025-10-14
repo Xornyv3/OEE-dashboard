@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "source": "./index.html",
   "type": "module",
-  "name": "prodex",
-  "description": "Prodex — Smart OEE & Productivity Dashboard",
+  "name": "blue-upgrade-technology",
+  "description": "Blue Upgrade Technology — Smart OEE & Productivity Dashboard",
   "private": true,
   "engines": {
     "node": "20.x"

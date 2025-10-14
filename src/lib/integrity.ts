@@ -75,7 +75,7 @@ export async function saveConnectors(c: Connector[]): Promise<{ success: boolean
 
 // Policy
 export async function getIntegrityPolicy(): Promise<IntegrityPolicy> {
-  const local = localStorage.getItem("prodex.integrity.policy");
+  const local = localStorage.getItem("but.integrity.policy");
   const fallback: IntegrityPolicy = local ? JSON.parse(local) : {
     manualCountsDisabled: true,
     requireTwoPersonApproval: true,
@@ -85,13 +85,13 @@ export async function getIntegrityPolicy(): Promise<IntegrityPolicy> {
 }
 
 export async function saveIntegrityPolicy(p: IntegrityPolicy): Promise<{ success: boolean }>{
-  localStorage.setItem("prodex.integrity.policy", JSON.stringify(p));
+  localStorage.setItem("but.integrity.policy", JSON.stringify(p));
   return safePost("/integrity/policy", p, { success: true });
 }
 
 // Audit trail (append-only)
 export async function listAuditEntries(): Promise<AuditEntry[]> {
-  const local = localStorage.getItem("prodex.integrity.audit");
+  const local = localStorage.getItem("but.integrity.audit");
   const fallback: AuditEntry[] = local ? JSON.parse(local) : [];
   return safeGet<AuditEntry[]>("/integrity/audit", fallback);
 }
@@ -100,13 +100,13 @@ export async function appendAuditEntry(entry: Omit<AuditEntry, "id" | "when"> & 
   const record: AuditEntry = { id: crypto.randomUUID(), when: entry.when ?? new Date().toISOString(), ...entry } as AuditEntry;
   const existing = await listAuditEntries();
   const updated = [record, ...existing];
-  localStorage.setItem("prodex.integrity.audit", JSON.stringify(updated));
+  localStorage.setItem("but.integrity.audit", JSON.stringify(updated));
   return safePost("/integrity/audit", record, { success: true, id: record.id });
 }
 
 // Loss taxonomy (versioned KPI dictionary)
 export async function getTaxonomy(): Promise<Taxonomy> {
-  const local = localStorage.getItem("prodex.integrity.taxonomy");
+  const local = localStorage.getItem("but.integrity.taxonomy");
   const fallback: Taxonomy = local ? JSON.parse(local) : {
     version: "v1",
     changedAt: new Date().toISOString(),
@@ -127,13 +127,13 @@ export async function getTaxonomy(): Promise<Taxonomy> {
 export async function saveTaxonomy(t: Taxonomy): Promise<{ success: boolean }>{
   // bump version locally for demo
   const bumped = { ...t, version: `v${Number((t.version||"v1").replace(/\D/g, "")) + 1}`, changedAt: new Date().toISOString() };
-  localStorage.setItem("prodex.integrity.taxonomy", JSON.stringify(bumped));
+  localStorage.setItem("but.integrity.taxonomy", JSON.stringify(bumped));
   return safePost("/integrity/taxonomy", bumped, { success: true });
 }
 
 // Watchdogs
 export async function getWatchdogs(): Promise<WatchdogRule[]> {
-  const local = localStorage.getItem("prodex.integrity.watchdogs");
+  const local = localStorage.getItem("but.integrity.watchdogs");
   const fallback: WatchdogRule[] = local ? JSON.parse(local) : [
     { id: "w1", name: "Impossible speed", condition: "speed>max*1.2", severity: "critical", enabled: true },
     { id: "w2", name: "Zero scrap shift", condition: "scrap==0 for 8h", severity: "warning", enabled: true },
@@ -144,7 +144,7 @@ export async function getWatchdogs(): Promise<WatchdogRule[]> {
 }
 
 export async function saveWatchdogs(list: WatchdogRule[]): Promise<{ success: boolean }>{
-  localStorage.setItem("prodex.integrity.watchdogs", JSON.stringify(list));
+  localStorage.setItem("but.integrity.watchdogs", JSON.stringify(list));
   return safePost("/integrity/watchdogs", list, { success: true });
 }
 

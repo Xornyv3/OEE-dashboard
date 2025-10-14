@@ -1,6 +1,6 @@
-# Prodex — Smart OEE & Productivity Dashboard
+# Blue Upgrade Technology — Smart OEE & Productivity Dashboard
 
-Welcome! This project is the Prodex dashboard for OEE and productivity insights.
+Welcome! This project is the Blue Upgrade Technology dashboard for OEE and productivity insights.
 
 ## Documentation
 

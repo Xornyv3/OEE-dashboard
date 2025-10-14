@@ -16,7 +16,7 @@ export type StudyBenchmark = {
   source?: string; // study name or URL
 };
 
-const LS_KEY = 'prodex.reference.study';
+const LS_KEY = 'but.reference.study';
 const API_BASE = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
 
 async function safeGet<T>(path: string, fallback: T): Promise<T> {
