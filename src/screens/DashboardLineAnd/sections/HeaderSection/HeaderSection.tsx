@@ -17,11 +17,12 @@ export const HeaderSection = (): JSX.Element => {
 
   return (
   <header className="w-full border-b border-[#4F4F59] px-4 sm:px-6 md:px-8 py-4 md:py-5 bg-[#020202]">
-    <div className="max-w-7xl mx-auto">
+    <div className="w-full">
       {/* Top bar: left (title+subtitle) and right (status/time/role), vertically centered */}
       <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-4">
         <div className="min-w-0">
-          <div className="flex flex-col justify-center">
+          {/* Title/subtitle aligned to the header padding (left), with a slight downward nudge */}
+          <div className="flex flex-col justify-center ml-0 transform translate-y-2 md:translate-y-3">
             <h1 className="font-display font-bold text-white text-2xl sm:text-3xl md:text-[38px] md:leading-[44px] tracking-tight uppercase whitespace-nowrap">
               Blue Upgrade Technology
             </h1>
@@ -55,11 +56,12 @@ export const HeaderSection = (): JSX.Element => {
         </div>
       </div>
       {/* Second row: Search aligned to the right, unchanged */}
-      <div className="mt-4 flex items-center gap-4">
+  <div className="mt-4 flex items-center gap-4">
         <div className="relative w-full max-w-md ml-auto">
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9B9BA6]" />
           <Input
             className="w-full pl-10 pr-4 py-2.5 bg-[#151518] text-white border border-[#4F4F59] rounded-[6px] placeholder:text-[#9B9BA6] focus-visible:border-action-interactiveBlue font-sans"
+            data-accent="green"
             placeholder="Search here..."
           />
         </div>

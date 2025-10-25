@@ -77,11 +77,17 @@ export const DashboardOverviewSection = (): JSX.Element => {
     return "w-0";
   };
 
+  const pctToColor = (p: number) => {
+    if (p >= 85) return "bg-[#05C168]"; // green
+    if (p >= 70) return "bg-[#FF9E2C]"; // yellow
+    return "bg-[#FF5A65]"; // red
+  };
+
   return (
     <div className="space-y-6">
       {/* Header row: Shift progress + counts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 accent-card accent-indigo">
           <CardHeader className="flex flex-row items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-md bg-white/10 border border-white/20 flex items-center justify-center">
@@ -110,7 +116,7 @@ export const DashboardOverviewSection = (): JSX.Element => {
             <div className="flex items-center gap-4">
               <div className="flex-1">
                 <div className="w-full bg-[#4F4F59] rounded-full h-3">
-                  <div className={`h-3 rounded-full bg-white ${pctToWidth(shift?.percent ?? 0)}`}></div>
+                  <div className={`h-3 rounded-full ${pctToColor(shift?.percent ?? 0)} ${pctToWidth(shift?.percent ?? 0)}`}></div>
                 </div>
               </div>
               <div className="w-16 text-right text-white/80">{shift?.percent ?? 0}%</div>
@@ -120,7 +126,7 @@ export const DashboardOverviewSection = (): JSX.Element => {
             </div>
           </CardContent>
         </Card>
-        <Card>
+  <Card className="accent-card accent-teal">
           <CardHeader>
             <CardTitle className="text-white text-xl">Production Counts</CardTitle>
           </CardHeader>
@@ -131,11 +137,11 @@ export const DashboardOverviewSection = (): JSX.Element => {
                 <div className="text-white/70 text-xs">Total</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-white">{counts?.good ?? 0}</div>
+                <div className="text-2xl font-bold text-[#05C168]">{counts?.good ?? 0}</div>
                 <div className="text-white/70 text-xs">Good</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-white">{counts?.scrap ?? 0}</div>
+                <div className="text-2xl font-bold text-[#FF5A65]">{counts?.scrap ?? 0}</div>
                 <div className="text-white/70 text-xs">Scrap</div>
               </div>
             </div>
@@ -147,7 +153,7 @@ export const DashboardOverviewSection = (): JSX.Element => {
       </div>
 
       {/* Machines + Operators */}
-      <Card>
+  <Card className="accent-card accent-blue">
         <CardHeader className="flex flex-row items-center gap-3">
           <div className="w-10 h-10 rounded-md bg-white/10 border border-white/20 flex items-center justify-center">
             <Cpu className="w-5 h-5 text-white" />
@@ -177,12 +183,12 @@ export const DashboardOverviewSection = (): JSX.Element => {
                       <TableCell className="text-white/80">{m.line ?? "—"}</TableCell>
                       <TableCell>
                         {m.on ? (
-                          <Badge className="bg-white/15 text-white border border-white/20 flex items-center gap-1">
-                            <Activity className="w-3.5 h-3.5" /> On
+                          <Badge variant="success" className="flex items-center gap-1">
+                            <Activity className="w-3.5 h-3.5" /> Running
                           </Badge>
                         ) : (
-                          <Badge className="bg-white/5 text-white border border-white/30 flex items-center gap-1">
-                            <XMark /> Off
+                          <Badge variant="danger" className="flex items-center gap-1">
+                            <XMark /> Stopped
                           </Badge>
                         )}
                       </TableCell>
@@ -200,7 +206,7 @@ export const DashboardOverviewSection = (): JSX.Element => {
       </Card>
 
       {/* Work Orders progress */}
-      <Card>
+  <Card className="accent-card accent-orange">
         <CardHeader>
           <CardTitle className="text-white text-xl">Work Orders</CardTitle>
         </CardHeader>
@@ -216,7 +222,7 @@ export const DashboardOverviewSection = (): JSX.Element => {
                 </div>
                 <div className="text-white/70 text-sm">{o.product}</div>
                 <div className="mt-2 w-full bg-[#4F4F59] rounded-full h-2">
-                  <div className={`h-2 rounded-full bg-white ${pctToWidth(o.percent)}`}></div>
+                  <div className={`h-2 rounded-full ${pctToColor(o.percent)} ${pctToWidth(o.percent)}`}></div>
                 </div>
                 <div className="mt-1 text-right text-white/70 text-xs">{o.percent}%</div>
               </div>
@@ -226,7 +232,7 @@ export const DashboardOverviewSection = (): JSX.Element => {
       </Card>
 
       {/* Downtime / stops */}
-      <Card>
+  <Card className="accent-card accent-red">
         <CardHeader className="flex flex-row items-center gap-3">
           <div className="w-10 h-10 rounded-md bg-white/10 border border-white/20 flex items-center justify-center">
             <AlertTriangle className="w-5 h-5 text-white" />
@@ -244,7 +250,7 @@ export const DashboardOverviewSection = (): JSX.Element => {
                 className="p-3 rounded-[6px] border border-white/10 bg-white/5 flex items-center justify-between"
               >
                 <div className="flex items-center gap-3">
-                  <Badge className="bg-white/10 text-white border border-white/20">{a.machineId}</Badge>
+                  <Badge variant={a.severity === "high" ? "danger" : a.severity === "medium" ? "warning" : "info"}>{a.machineId}</Badge>
                   <div className="text-white">{a.reason}</div>
                 </div>
                 <div className="text-white/60 text-sm">
