@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DailyProductionOverviewSection } from "./sections/DailyProductionOverviewSection";
 import { DataRefreshSection } from "./sections/DataRefreshSection";
 import { ErrorRateChartSection } from "./sections/ErrorRateChartSection";
@@ -27,6 +27,9 @@ import { RealTimeMonitoringSection } from "./sections/RealTimeMonitoringSection"
 import { MaintenancePdMSection } from "./sections/MaintenancePdMSection";
 import { QualityTraceabilitySection } from "./sections/QualityTraceabilitySection";
 import { AdvancedAnalyticsSection } from "./sections/AdvancedAnalyticsSection";
+import { usePermissions } from "../../lib/permissions";
+import { useAuth } from "../../lib/auth";
+import { isTabVisible, orderedTabs } from "./navigation-permissions";
 
 export type ActiveTab =
   | "general-info"
@@ -52,6 +55,23 @@ export type ActiveTab =
 
 export const DashboardLineAnd = (): JSX.Element => {
   const [activeTab, setActiveTab] = useState<ActiveTab>("dashboard-line-machine");
+  const perms = usePermissions();
+  const { role } = useAuth();
+
+  // Compute allowed tabs for the current role/permissions
+  const allowedTabs = useMemo(
+    () => orderedTabs.filter((t) => isTabVisible(t, perms, role)),
+    [perms, role]
+  );
+
+  // Auto-correct the active tab if it's not allowed for the current role
+  useEffect(() => {
+    if (!allowedTabs.includes(activeTab)) {
+      setActiveTab(allowedTabs[0] ?? "dashboard-line-machine");
+    }
+    // Only react to changes in allowedTabs or activeTab
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allowedTabs, activeTab]);
 
   const renderContent = () => {
     switch (activeTab) {

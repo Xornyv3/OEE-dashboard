@@ -40,16 +40,17 @@ export const HeaderSection = (): JSX.Element => {
             <div className="text-white text-sm font-sans font-medium tracking-normal tabular-nums">{currentDateTime}</div>
             <div className="text-[#9B9BA6] text-xs mt-1">Local Time</div>
           </div>
-          <div className="min-w-[160px] sm:min-w-[200px]">
+          <div className="min-w-[200px] sm:min-w-[240px]">
             <Select value={role} onValueChange={v => setRole(v as any)}>
               <SelectTrigger className="h-10 bg-[#151518] text-white border border-[#4F4F59] rounded-[6px] w-full">
                 <SelectValue placeholder="Select mode" />
               </SelectTrigger>
               <SelectContent className="bg-white text-black border border-gray-200">
-                <SelectItem value="manager" className="data-[highlighted]:bg-gray-100">Manager view</SelectItem>
-                <SelectItem value="supervisor" className="data-[highlighted]:bg-gray-100">Supervisor</SelectItem>
-                <SelectItem value="operator" className="data-[highlighted]:bg-gray-100">Worker view</SelectItem>
-                <SelectItem value="executive" className="data-[highlighted]:bg-gray-100">Executive</SelectItem>
+                <SelectItem value="administrator" className="data-[highlighted]:bg-gray-100">Administrateur</SelectItem>
+                <SelectItem value="quality" className="data-[highlighted]:bg-gray-100">Quality Manager</SelectItem>
+                <SelectItem value="operations" className="data-[highlighted]:bg-gray-100">Opérations / Supply Chain</SelectItem>
+                <SelectItem value="maintenance" className="data-[highlighted]:bg-gray-100">Maintenance Operator</SelectItem>
+                <SelectItem value="production" className="data-[highlighted]:bg-gray-100">Production Manager</SelectItem>
               </SelectContent>
             </Select>
           </div>

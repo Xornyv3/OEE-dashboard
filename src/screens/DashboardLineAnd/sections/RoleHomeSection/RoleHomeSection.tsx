@@ -43,7 +43,8 @@ export const RoleHomeSection = (): JSX.Element => {
     </div>
   );
 
-  if (role === 'operator') {
+  // Maintenance operator: similar to operator but with maintenance focus
+  if (role === 'maintenance' || role === 'operator') {
     return (
       <div className="space-y-6">
         <Card>
@@ -66,6 +67,19 @@ export const RoleHomeSection = (): JSX.Element => {
             <div className="rounded-[6px] border border-white/10 bg-white/5 p-3"><div className="text-white/70 text-xs">Actual/hr</div><div className="text-white text-xl">{Math.round((counts?.ratePerHour ?? 210) * 0.95)}</div></div>
           </CardContent>
         </Card>
+        {/* Maintenance quick actions (UI-only) */}
+        {role === 'maintenance' && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-white text-xl flex items-center gap-2"><HeartPulse className="w-5 h-5" /> Maintenance Quick Actions</CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {['Create Work Order','Acknowledge Alarm','Request Spare Part'].map(a => (
+                <Button key={a} variant="outline" className="justify-start">{a}</Button>
+              ))}
+            </CardContent>
+          </Card>
+        )}
         <Card>
           <CardHeader>
             <CardTitle className="text-white text-xl flex items-center gap-2"><AlarmClock className="w-5 h-5" /> Downtime Reason Picker</CardTitle>
@@ -81,7 +95,8 @@ export const RoleHomeSection = (): JSX.Element => {
     );
   }
 
-  if (role === 'supervisor') {
+  // Quality manager view
+  if (role === 'quality' || role === 'supervisor') {
     return (
       <div className="space-y-6">
         <Card>
@@ -98,6 +113,10 @@ export const RoleHomeSection = (): JSX.Element => {
               <div className="text-white/60 text-sm">Setup, Reduced Speed, Minor Stops… (UI stub)</div>
             </div>
           </CardContent>
+        </Card>
+        <Card>
+          <CardHeader><CardTitle className="text-white text-xl flex items-center gap-2"><PieChart className="w-5 h-5" /> Defects by Category</CardTitle></CardHeader>
+          <CardContent className="text-white/70 text-sm">Placeholder for defect categories (e.g., vision detection results, Cp/Cpk chart).</CardContent>
         </Card>
         <Card>
           <CardHeader><CardTitle className="text-white text-xl flex items-center gap-2"><Users className="w-5 h-5" /> WIP / Staffing vs Plan</CardTitle></CardHeader>
@@ -127,7 +146,8 @@ export const RoleHomeSection = (): JSX.Element => {
     );
   }
 
-  if (role === 'manager') {
+  // Production manager & operations/supply chain managers
+  if (role === 'production' || role === 'operations' || role === 'manager') {
     return (
       <div className="space-y-6">
         <Card>
@@ -142,6 +162,15 @@ export const RoleHomeSection = (): JSX.Element => {
           <CardHeader><CardTitle className="text-white text-xl flex items-center gap-2"><PieChart className="w-5 h-5" /> Cost of Loss Waterfall</CardTitle></CardHeader>
           <CardContent className="text-white/70 text-sm">Placeholder for waterfall chart: Availability → Performance → Quality → OEE.</CardContent>
         </Card>
+        {role === 'operations' && (
+          <Card>
+            <CardHeader><CardTitle className="text-white text-xl flex items-center gap-2"><BarChart3 className="w-5 h-5" /> Inventory & Demand</CardTitle></CardHeader>
+            <CardContent className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              <div className="rounded-[6px] border border-white/15 bg-white/5 p-3"><div className="text-white/70 text-xs">Current Inventory</div><div className="text-white text-xl">Balanced (stub)</div></div>
+              <div className="rounded-[6px] border border-white/15 bg-white/5 p-3"><div className="text-white/70 text-xs">Forecast Next 7 Days</div><div className="text-white text-xl">Demand ↑2% (stub)</div></div>
+            </CardContent>
+          </Card>
+        )}
         <Card>
           <CardHeader><CardTitle className="text-white text-xl flex items-center gap-2"><HeartPulse className="w-5 h-5" /> Maintenance Compliance & OTIF</CardTitle></CardHeader>
           <CardContent className="grid grid-cols-1 lg:grid-cols-2 gap-3">
@@ -153,7 +182,7 @@ export const RoleHomeSection = (): JSX.Element => {
     );
   }
 
-  // Executive
+  // Administrator / Executive control tower
   return (
     <div className="space-y-6">
       <Card>
@@ -168,6 +197,16 @@ export const RoleHomeSection = (): JSX.Element => {
           ))}
         </CardContent>
       </Card>
+      {role === 'administrator' && (
+        <Card>
+          <CardHeader><CardTitle className="text-white text-xl flex items-center gap-2">System Health & Access</CardTitle></CardHeader>
+          <CardContent className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+            <div className="rounded-[6px] border border-white/15 bg-white/5 p-3"><div className="text-white/70 text-xs">API Status</div><div className="text-white text-xl">Healthy</div></div>
+            <div className="rounded-[6px] border border-white/15 bg-white/5 p-3"><div className="text-white/70 text-xs">Users</div><div className="text-white text-xl">Manage (stub)</div></div>
+            <div className="rounded-[6px] border border-white/15 bg-white/5 p-3"><div className="text-white/70 text-xs">Settings</div><div className="text-white text-xl">Configure (stub)</div></div>
+          </CardContent>
+        </Card>
+      )}
       <Card>
         <CardHeader><CardTitle className="text-white text-xl flex items-center gap-2"><Languages className="w-5 h-5" /> Multilingual & Accessibility</CardTitle></CardHeader>
         <CardContent className="text-white/70 text-sm">UI designed for mobile, kiosk, large screens. Support for future i18n and A11y (font sizes, contrast, keyboard nav).</CardContent>

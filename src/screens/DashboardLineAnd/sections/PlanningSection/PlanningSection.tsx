@@ -5,17 +5,19 @@ import { Button } from "../../../../components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../components/ui/select";
 import { Input } from "../../../../components/ui/input";
 import { useAuth } from "../../../../lib/auth";
+import { usePermissions } from "../../../../lib/permissions";
 import { fetchArticles, fetchMachines, fetchShiftSlots, fetchAssignments, saveAssignment, deleteAssignment, type Article, type Assignment, type Machine, type ShiftSlot } from "../../../../lib/planning";
 
 export const PlanningSection = (): JSX.Element => {
-  const { role } = useAuth();
+  useAuth(); // keep context initialized for future use
+  const { canEditScheduling } = usePermissions();
   const [date, setDate] = useState<string>(() => new Date().toISOString().slice(0, 10));
   const [articles, setArticles] = useState<Article[]>([]);
   const [machines, setMachines] = useState<Machine[]>([]);
   const [shifts, setShifts] = useState<ShiftSlot[]>([]);
   const [rows, setRows] = useState<Assignment[]>([]);
 
-  const canEdit = role !== "operator"; // managers/supervisors can plan, operators view
+  const canEdit = !!canEditScheduling;
 
   useEffect(() => {
     (async () => {

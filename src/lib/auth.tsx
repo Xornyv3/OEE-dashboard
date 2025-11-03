@@ -1,6 +1,16 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-export type Role = 'operator' | 'supervisor' | 'manager' | 'executive';
+export type Role =
+  | 'administrator'
+  | 'quality'
+  | 'operations'
+  | 'maintenance'
+  | 'production'
+  // Legacy roles kept for compatibility with existing views
+  | 'operator'
+  | 'supervisor'
+  | 'manager'
+  | 'executive';
 
 type AuthState = {
   role: Role;
@@ -12,7 +22,7 @@ const AuthContext = createContext<AuthState | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [role, setRoleState] = useState<Role>(() => {
     const raw = localStorage.getItem('auth:role');
-    return (raw as Role) || 'operator';
+    return (raw as Role) || 'production';
   });
   const setRole = (r: Role) => setRoleState(r);
 

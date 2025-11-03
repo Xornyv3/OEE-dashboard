@@ -9,11 +9,13 @@ import { cancelWorkOrder, fetchItemDetails, fetchShiftTypes, type ItemDetails, t
 import { Separator } from "../../../../components/ui/separator";
 import { ClipboardList, Download, Users as UsersIcon, Timer, OctagonX } from "lucide-react";
 import { useAuth } from "../../../../lib/auth";
+import { usePermissions } from "../../../../lib/permissions";
 import { getIntegrityPolicy } from "../../../../lib/integrity";
 
 export const WorkingOrderFollowUpSection = (): JSX.Element => {
-  const { role } = useAuth();
-  const viewOnly = role === 'operator';
+  useAuth();
+  const { canEditScheduling } = usePermissions();
+  const viewOnly = !canEditScheduling;
   const [manualDisabled, setManualDisabled] = useState<boolean>(true);
   useEffect(() => { getIntegrityPolicy().then(p => setManualDisabled(p.manualCountsDisabled)); }, []);
   // Local state for orders (could be fetched later)

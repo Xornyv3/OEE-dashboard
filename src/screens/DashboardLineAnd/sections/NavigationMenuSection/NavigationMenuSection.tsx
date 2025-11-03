@@ -18,6 +18,9 @@ import {
 } from "lucide-react";
 import { ScrollArea } from "../../../../components/ui/scroll-area";
 import { ActiveTab } from "../../DashboardLineAnd";
+import { usePermissions } from "../../../../lib/permissions";
+import { useAuth } from "../../../../lib/auth";
+import { isTabVisible } from "../../navigation-permissions";
 
 interface NavigationMenuSectionProps {
   activeTab: ActiveTab;
@@ -25,6 +28,8 @@ interface NavigationMenuSectionProps {
 }
 
 export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenuSectionProps): JSX.Element => {
+  const perms = usePermissions();
+  const { role } = useAuth();
   const menuItems = [
     {
       title: "Dashboard Overview",
@@ -131,7 +136,9 @@ export const NavigationMenuSection = ({ activeTab, onTabChange }: NavigationMenu
 
           {/* Icons + labels (icons fixed, labels reveal on hover) */}
           <div className="flex flex-col items-center gap-1 w-full">
-            {menuItems.map((item, index) => {
+            {menuItems
+              .filter((item) => isTabVisible(item.tabKey, perms, role))
+              .map((item, index) => {
               const isActive = activeTab === item.tabKey;
               return (
                 <button
