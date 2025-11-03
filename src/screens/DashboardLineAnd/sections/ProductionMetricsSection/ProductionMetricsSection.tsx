@@ -10,11 +10,11 @@ export const ProductionMetricsSection = (): JSX.Element => {
     { label: "Total Machines", value: "2" },
   ];
 
-  const legendItems = [
-    { label: "Availability" },
-    { label: "Performance" },
-    { label: "Quality" },
-    { label: "Others" },
+  const legendItems: { label: string; colorClass: string }[] = [
+    { label: "Availability", colorClass: "text-[#05C168]" }, // green
+    { label: "Performance", colorClass: "text-[#FF9E2C]" }, // orange
+    { label: "Quality", colorClass: "text-[#FACC15]" }, // yellow
+    { label: "Others", colorClass: "text-[#FF5A65]" }, // red
   ];
 
   return (
@@ -32,15 +32,18 @@ export const ProductionMetricsSection = (): JSX.Element => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center space-y-6">
-            {/* OEE Percentage Display */}
+            {/* OEE Percentage Display with colored quarters (A/P/Q/Other) */}
             <div className="relative w-48 h-48 flex items-center justify-center">
               {/* Background circle */}
               <div className="absolute inset-0 rounded-full border-8 border-[#4F4F59]"></div>
               
               {/* Progress circles */}
-              <div className="absolute inset-0 rounded-full border-8 border-transparent border-t-white clip-quarter-top"></div>
-              <div className="absolute inset-0 rounded-full border-8 border-transparent border-r-white/70 clip-quarter-right"></div>
-              <div className="absolute inset-0 rounded-full border-8 border-transparent border-b-white/50 clip-quarter-bottom"></div>
+              {/* Availability (top, green) */}
+              <div className="absolute inset-0 rounded-full border-8 border-transparent border-t-[#05C168] clip-quarter-top"></div>
+              {/* Performance (right, orange) */}
+              <div className="absolute inset-0 rounded-full border-8 border-transparent border-r-[#FF9E2C] clip-quarter-right"></div>
+              {/* Quality (bottom, yellow) */}
+              <div className="absolute inset-0 rounded-full border-8 border-transparent border-b-[#FACC15] clip-quarter-bottom"></div>
               
               {/* Center content */}
               <div className="relative z-10 text-center">
@@ -56,7 +59,7 @@ export const ProductionMetricsSection = (): JSX.Element => {
                   key={index}
                   className="rounded-[6px] border border-[#4F4F59] bg-[#191921] text-white px-3 py-2 flex items-center gap-3"
                 >
-                    <Square className="w-3.5 h-3.5 text-white" />
+                    <Square className={`w-3.5 h-3.5 ${item.colorClass}`} />
                   <span className="text-sm font-medium">
                     {item.label}
                   </span>
